@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #fdf6fb;
+  color: #332538;
+}
+
+.dark body {
+  background-color: #241a29;
+  color: #f3e5f0;
+}
+
+/* Sembunyikan scroll saat cover/gerbang undangan masih terbuka */
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Motif ornamen lembut pink-lilac, kesan modern & meriah tanpa ramai */
+.bg-batik {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(193, 100, 184, 0.16) 1.5px, transparent 0),
+    radial-gradient(circle at 13px 13px, rgba(143, 96, 189, 0.12) 1px, transparent 0);
+  background-size: 26px 26px;
+}
+
+/* Pita gradasi pink -> lilac -> gold sebagai aksen dekoratif */
+.gradient-wedding {
+  background-image: linear-gradient(120deg, #e7a8de 0%, #c164b8 35%, #8f60bd 70%, #e8c46a 100%);
+}
+
+.text-gradient-wedding {
+  background-image: linear-gradient(120deg, #c164b8 0%, #8f60bd 60%, #a34b9c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-fade {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.section-fade.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #c164b8;
+  border-radius: 999px;
+}
