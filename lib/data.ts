@@ -6,37 +6,42 @@ export const config = {
   groom: {
     name: 'Paulus',
     fullName: 'Paulus Ricky Kurnianda',
-    parents: 'Putra dari Bapak & Ibu Kurnianda',
+    parents: 'Putra dari Bapak Agustinus Puji Santoso & Ibu Umiyatun',
     instagram: '#',
     photo: '/images/groom.jpg',
   },
   bride: {
     name: 'Erina',
     fullName: 'Theodora Erina Gisela',
-    parents: 'Putri dari Bapak & Ibu Gisela',
+    parents: 'Putri dari Bapak Hendrikus Ola Kewegen & Ibu Cyrinia Joice Wirantini',
     instagram: '#',
     photo: '/images/bride.jpg',
   },
   // Tanggal & waktu acara (ISO 8601, sertakan timezone)
-  weddingDate: '2026-12-26T08:00:00+07:00',
+  weddingDate: '2026-12-26T12:00:00+07:00',
   events: [
     {
-      name: 'Akad Nikah',
+      name: 'Misa Pemberkatan',
       date: '26 Desember 2026',
-      time: '08:00 - 10:00 WIB',
-      location: 'Kediaman Mempelai Wanita',
-      address: 'Jl. Melati No. 10, Jakarta Selatan',
-      mapsUrl: 'https://maps.google.com',
-    },
-    {
-      name: 'Resepsi',
-      date: '26 Desember 2026',
-      time: '11:00 - 14:00 WIB',
-      location: 'Gedung Serbaguna Sejahtera',
-      address: 'Jl. Anggrek No. 5, Jakarta Selatan',
-      mapsUrl: 'https://maps.google.com',
+      time: '12.00 WIB - Selesai',
+      location: 'Gereja Katolik Paroki Santo Thomas Rasul, Bojong Indah',
+      address: 'Jl. Pakis Raya No. 20, RT.10/RW.7, Rw. Buaya, Kecamatan Cengkareng, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta',
+      mapsUrl: 'https://maps.google.com/?q=Gereja+Katolik+Paroki+Santo+Thomas+Rasul+Bojong+Indah',
     },
   ],
+  // Kutipan Kitab Suci (paraphrase, bukan kutipan literal terjemahan LAI)
+  // seputar tema pernikahan Katolik, ditampilkan di komponen BibleVerse.
+  bibleVerses: [
+    {
+      reference: '1 Korintus 13:4-7',
+      text: 'Kasih itu sabar dan murah hati; kasih tidak cemburu, tidak sombong, tidak mencari keuntungan diri sendiri, dan menanggung segala sesuatu.',
+    },
+    {
+      reference: 'Matius 19:6',
+      text: 'Demikianlah mereka bukan lagi dua, melainkan satu. Karena itu, apa yang telah dipersatukan Allah, tidak boleh diceraikan manusia.',
+    },
+  ],
+
   loveStory: [
     { year: '2022', title: 'Pertama Bertemu', desc: 'Dipertemukan di sebuah acara kampus yang tidak pernah kami duga akan mengubah hidup kami.' },
     { year: '2023', title: 'Mulai Dekat', desc: 'Perlahan kebersamaan tumbuh menjadi kisah yang lebih serius.' },
@@ -53,8 +58,8 @@ export const config = {
   ],
   gift: {
     bank: [
-      { bank: 'BCA', number: '1234567890', name: 'Paulus Ricky Kurnianda' },
-      { bank: 'Mandiri', number: '0987654321', name: 'Theodora Erina Gisela' },
+      { bank: 'BCA', number: '3990439884', name: 'Paulus Ricky Kurnianda' },
+      { bank: 'BCA', number: '4790443263', name: 'Theodora Erina Gisela' },
     ],
     address: {
       recipient: 'Paulus & Erina',
@@ -62,7 +67,9 @@ export const config = {
     },
   },
   music: '/audio/wedding-song.mp3',
-  hashtag: '#PulusErina❤️',
+  hashtag: '#PAUevERinlove',
+  // Puisi janji setia (dari undangan fisik), ditampilkan di Hero.
+  vow: 'I want to be your love forever and ever, without break or decay. When the hills are all flat, the rivers are all dry, when it thunders in winter, when it snows in summer, when heaven and earth mingle — I will always love you, no matter what.',
 };
 
 export type EventConfig = (typeof config)['events'][number];

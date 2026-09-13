@@ -5,17 +5,19 @@ import Image from 'next/image';
 import { X } from 'lucide-react';
 import { config } from '@/lib/data';
 import Reveal from './Reveal';
+import SectionDivider from './SectionDivider';
 
 export default function Gallery() {
   const [active, setActive] = useState<string | null>(null);
 
   return (
-    <section id="gallery" className="bg-primary-50 px-6 py-20 dark:bg-ink">
+    <section id="gallery" className="relative overflow-hidden bg-white px-6 py-20 dark:bg-primary-950/20">
       <Reveal className="text-center">
         <p className="text-sm uppercase tracking-[0.3em] text-primary-600">Momen</p>
         <h2 className="mt-3 font-serif text-3xl font-semibold text-primary-800 dark:text-primary-100">
           Galeri Foto
         </h2>
+        <SectionDivider className="mt-4" />
       </Reveal>
 
       <div className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3">

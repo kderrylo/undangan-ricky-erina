@@ -2,6 +2,9 @@ import Image from 'next/image';
 import { Instagram } from 'lucide-react';
 import { config } from '@/lib/data';
 import Reveal from './Reveal';
+import FloralOrnament from './FloralOrnament';
+import BouquetOrnament from './BouquetOrnament';
+import SectionDivider from './SectionDivider';
 
 function PersonCard({
   person,
@@ -44,15 +47,21 @@ function PersonCard({
 
 export default function CoupleInfo() {
   return (
-    <section id="couple" className="bg-white px-6 py-20 dark:bg-primary-950/20">
-      <Reveal className="text-center">
+    <section id="couple" className="relative overflow-hidden bg-white px-6 py-20 dark:bg-primary-950/20">
+      <FloralOrnament className="pointer-events-none absolute -left-10 -top-10 h-32 w-32 text-primary-200 opacity-60 sm:h-44 sm:w-44" />
+      <FloralOrnament flip className="pointer-events-none absolute -right-10 -bottom-10 h-32 w-32 text-lilac-200 opacity-60 sm:h-44 sm:w-44" />
+      <BouquetOrnament flip className="pointer-events-none absolute -right-8 -top-6 h-28 w-28 text-lilac-200 opacity-45 sm:h-40 sm:w-40" />
+      <BouquetOrnament className="pointer-events-none absolute -left-8 -bottom-6 h-28 w-28 text-primary-200 opacity-45 sm:h-40 sm:w-40" />
+
+      <Reveal className="relative text-center">
         <p className="text-sm uppercase tracking-[0.3em] text-primary-600">Mempelai</p>
         <h2 className="mt-3 font-serif text-3xl font-semibold text-primary-800 dark:text-primary-100">
           Kedua Mempelai
         </h2>
+        <SectionDivider className="mt-4" />
       </Reveal>
 
-      <div className="mx-auto mt-14 grid max-w-3xl grid-cols-1 items-center gap-14 sm:grid-cols-[1fr_auto_1fr]">
+      <div className="relative mx-auto mt-14 grid max-w-3xl grid-cols-1 items-center gap-14 sm:grid-cols-[1fr_auto_1fr]">
         <PersonCard person={config.groom} align="left" />
         <Reveal delay={0.2} className="font-script text-5xl text-primary-400 text-center">
           &amp;

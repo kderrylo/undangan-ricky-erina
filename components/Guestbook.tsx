@@ -1,13 +1,15 @@
 'use client';
 
 import { useEffect, useState, FormEvent } from 'react';
-import { CheckCircle2, HelpCircle, XCircle, Send, Loader2 } from 'lucide-react';
+import { CheckCircle2, XCircle, Send, Loader2 } from 'lucide-react';
 import { Attendance, Comment } from '@/lib/types';
 import Reveal from './Reveal';
+import FloralOrnament from './FloralOrnament';
+import BouquetOrnament from './BouquetOrnament';
+import SectionDivider from './SectionDivider';
 
 const ATTENDANCE_OPTIONS: { value: Attendance; label: string; icon: typeof CheckCircle2 }[] = [
   { value: 'hadir', label: 'Hadir', icon: CheckCircle2 },
-  { value: 'tentative', label: 'Tentative', icon: HelpCircle },
   { value: 'tidak_hadir', label: 'Tidak Hadir', icon: XCircle },
 ];
 
@@ -22,23 +24,44 @@ function timeAgo(dateStr: string) {
   return `${days} hari lalu`;
 }
 
-export default function Guestbook({ initialName }: { initialName: string }) {
+export default function Guestbook({
+  initialName,
+  guestSlug,
+}: {
+  initialName: string;
+  guestSlug?: string;
+}) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [name, setName] = useState(initialName);
+  const [nameEditedByUser, setNameEditedByUser] = useState(false);
   const [message, setMessage] = useState('');
   const [attendance, setAttendance] = useState<Attendance>('hadir');
+  const [attendeeCount, setAttendeeCount] = useState(1);
+
+  // initialName bisa berubah sesaat setelah mount (dari tebakan berbasis slug
+  // menjadi nama asli dari database). Sinkronkan otomatis, TAPI jangan timpa
+  // kalau tamu sudah mulai mengetik/mengedit sendiri nama di kolom ini.
+  useEffect(() => {
+    if (!nameEditedByUser) {
+      setName(initialName);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialName]);
 
   const loadComments = async () => {
     try {
       const res = await fetch('/api/comments');
-      const json = await res.json();
-      setComments(json.data ?? []);
-    } catch {
-      setError('Gagal memuat ucapan. Coba muat ulang halaman.');
+      const json = await res.json().catch(() => null);
+      if (!res.ok) {
+        throw new Error(json?.error ?? `Gagal memuat ucapan (HTTP ${res.status}).`);
+      }
+      setComments(json?.data ?? []);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Gagal memuat ucapan. Coba muat ulang halaman.');
     } finally {
       setLoading(false);
     }
@@ -58,7 +81,7 @@ export default function Guestbook({ initialName }: { initialName: string }) {
       const res = await fetch('/api/comments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, message, attendance }),
+        body: JSON.stringify({ name, message, attendance, attendeeCount, guestSlug: guestSlug || undefined }),
       });
       if (!res.ok) {
         const json = await res.json();
@@ -76,8 +99,11 @@ export default function Guestbook({ initialName }: { initialName: string }) {
   const attendingCount = comments.filter((c) => c.attendance === 'hadir').length;
 
   return (
-    <section id="rsvp" className="bg-primary-50 px-6 py-20 dark:bg-ink">
-      <Reveal className="text-center">
+    <section id="rsvp" className="relative overflow-hidden bg-white px-6 py-20 dark:bg-primary-950/20">
+      <FloralOrnament className="pointer-events-none absolute -left-10 -bottom-10 h-36 w-36 text-primary-200 opacity-40 sm:h-48 sm:w-48" />
+      <BouquetOrnament flip className="pointer-events-none absolute -right-10 -top-8 h-32 w-32 text-lilac-200 opacity-40 sm:h-44 sm:w-44" />
+
+      <Reveal className="relative text-center">
         <p className="text-sm uppercase tracking-[0.3em] text-primary-600">RSVP</p>
         <h2 className="mt-3 font-serif text-3xl font-semibold text-primary-800 dark:text-primary-100">
           Konfirmasi Kehadiran &amp; Ucapan
@@ -87,6 +113,7 @@ export default function Guestbook({ initialName }: { initialName: string }) {
             {attendingCount} orang telah mengonfirmasi hadir · {comments.length} ucapan
           </p>
         )}
+        <SectionDivider className="mt-4" />
       </Reveal>
 
       <Reveal delay={0.15} className="mx-auto mt-10 max-w-lg">
@@ -100,7 +127,10 @@ export default function Guestbook({ initialName }: { initialName: string }) {
             </label>
             <input
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value);
+                setNameEditedByUser(true);
+              }}
               required
               maxLength={60}
               placeholder="Nama Anda"
@@ -112,7 +142,7 @@ export default function Guestbook({ initialName }: { initialName: string }) {
             <label className="mb-1 block text-xs font-medium text-primary-700 dark:text-primary-200">
               Konfirmasi Kehadiran
             </label>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 gap-2">
               {ATTENDANCE_OPTIONS.map((opt) => {
                 const Icon = opt.icon;
                 const active = attendance === opt.value;
@@ -134,6 +164,35 @@ export default function Guestbook({ initialName }: { initialName: string }) {
               })}
             </div>
           </div>
+
+          {attendance !== 'tidak_hadir' && (
+            <div>
+              <label className="mb-1 block text-xs font-medium text-primary-700 dark:text-primary-200">
+                Jumlah Tamu yang Hadir
+              </label>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setAttendeeCount((v) => Math.max(1, v - 1))}
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-primary-300 text-primary-600 transition hover:bg-primary-100 dark:border-primary-700 dark:text-primary-300"
+                  aria-label="Kurangi jumlah tamu"
+                >
+                  −
+                </button>
+                <span className="w-6 text-center text-sm font-semibold text-primary-800 dark:text-primary-100">
+                  {attendeeCount}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setAttendeeCount((v) => Math.min(10, v + 1))}
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-primary-300 text-primary-600 transition hover:bg-primary-100 dark:border-primary-700 dark:text-primary-300"
+                  aria-label="Tambah jumlah tamu"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          )}
 
           <div>
             <label className="mb-1 block text-xs font-medium text-primary-700 dark:text-primary-200">

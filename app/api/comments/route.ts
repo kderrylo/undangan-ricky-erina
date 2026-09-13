@@ -1,18 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { addComment, getComments } from '@/lib/db';
 import { Comment, NewComment } from '@/lib/types';
+import { apiErrorResponse } from '@/lib/apiError';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const comments = await getComments();
-  return NextResponse.json({ data: comments });
+  try {
+    const comments = await getComments();
+    return NextResponse.json({ data: comments });
+  } catch (err) {
+    return apiErrorResponse(err);
+  }
 }
 
 export async function POST(req: NextRequest) {
-  const body = (await req.json()) as Partial<NewComment>;
+  const body = (await req.json().catch(() => null)) as Partial<NewComment> | null;
 
-  if (!body.name || !body.message || !body.attendance) {
+  if (!body?.name || !body?.message || !body?.attendance) {
     return NextResponse.json(
       { error: 'Nama, pesan, dan konfirmasi kehadiran wajib diisi.' },
       { status: 400 }
@@ -26,15 +31,28 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const attendeeCount = Math.min(Math.max(Number(body.attendeeCount ?? 1) || 1, 1), 10);
+
   const comment: Comment = {
     id: crypto.randomUUID(),
     name: body.name.trim(),
     message: body.message.trim(),
     attendance: body.attendance,
+    attendeeCount,
     createdAt: new Date().toISOString(),
   };
 
-  await addComment(comment);
+  const ipAddress =
+    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? req.headers.get('x-real-ip');
 
-  return NextResponse.json({ data: comment }, { status: 201 });
+  try {
+    await addComment(comment, {
+      guestSlug: body.guestSlug ?? null,
+      ipAddress,
+      userAgent: req.headers.get('user-agent'),
+    });
+    return NextResponse.json({ data: comment }, { status: 201 });
+  } catch (err) {
+    return apiErrorResponse(err);
+  }
 }

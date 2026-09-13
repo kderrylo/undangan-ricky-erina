@@ -9,7 +9,7 @@ export default function FloralOrnament({
 }) {
   return (
     <svg
-      viewBox="0 0 200 200"
+      viewBox="-25 -25 225 225"
       className={className}
       style={{ ...(flip ? { transform: 'scaleX(-1)' } : {}), ...style }}
       fill="none"

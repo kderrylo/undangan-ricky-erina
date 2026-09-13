@@ -50,26 +50,31 @@ Ganti juga foto & musik di folder `public/images` dan `public/audio` (saat ini m
 berisi gambar & audio placeholder hasil generate otomatis — silakan ganti dengan foto
 dan lagu pilihanmu).
 
-## 🗄️ Tentang Penyimpanan RSVP/Ucapan
+## 🗄️ Tentang Penyimpanan RSVP/Ucapan & Data Tamu
 
-Buku tamu (RSVP + ucapan) disimpan lewat API route `app/api/comments/route.ts`, yang
-saat ini menulis ke file JSON lokal (`.data/comments.json`) melalui `lib/db.ts`.
+Buku tamu (RSVP + ucapan) dan data tamu sekarang disimpan di **MySQL** (siap dipakai
+dengan [Aiven for MySQL](https://aiven.io/mysql)), bukan lagi file JSON lokal.
 
-- **Cocok untuk:** development lokal, atau hosting sendiri di VPS/server Node.js yang
-  filesystem-nya persisten (PM2, Docker, dsb).
-- **Tidak cocok untuk:** platform serverless seperti Vercel/Netlify, karena filesystem
-  di sana bersifat sementara (setiap deploy/instance baru akan mereset data).
+- `lib/mysql.ts` — koneksi pool ke database (mendukung SSL/CA seperti yang
+  diwajibkan Aiven).
+- `lib/db.ts` — data akses untuk tabel `rsvp` (ucapan & konfirmasi kehadiran).
+- `lib/guests.ts` — data akses untuk tabel `guests` (daftar tamu & link personal).
+- `sql/schema.sql` — skema lengkap yang perlu dijalankan sekali di database kamu.
 
-Kalau kamu deploy ke Vercel atau ingin data yang benar-benar persisten, ganti isi
-`lib/db.ts` dengan koneksi ke database sungguhan, misalnya:
+👉 Lihat **[README-ADMIN.md](./README-ADMIN.md)** untuk panduan lengkap: membuat
+service MySQL di Aiven, menghubungkan dengan DBeaver, menjalankan migrasi, membuat
+akun admin pertama, dan memakai dashboard di `/admin`.
 
-- [Supabase](https://supabase.com) (Postgres, gratis untuk skala kecil)
-- [Turso](https://turso.tech) (SQLite di edge)
-- [PlanetScale](https://planetscale.com) (MySQL)
-- Firebase Firestore
+## 🔐 Dashboard Admin
 
-Struktur data (`Comment`) sudah didefinisikan di `lib/types.ts`, jadi kamu tinggal
-mengganti implementasi `getComments()` dan `addComment()` tanpa mengubah komponen UI.
+Tersedia dashboard di `/admin` (dilindungi login) untuk mempelai mengelola sendiri:
+
+- **Ringkasan** — statistik jumlah tamu, konfirmasi hadir/tidak hadir/tentative
+- **Data Tamu** — tambah tamu, generate link undangan personal (`?to=slug`), tandai
+  "sudah dikirim", hapus
+- **Ucapan & RSVP** — lihat semua ucapan masuk, sematkan (pin) yang favorit, hapus
+
+Detail setup & kredensial ada di [README-ADMIN.md](./README-ADMIN.md).
 
 ## 📦 Build untuk Produksi
 
@@ -84,7 +89,9 @@ Atau deploy langsung ke [Vercel](https://vercel.com) (ingat catatan penyimpanan 
 
 ```
 app/
-  api/comments/route.ts   # API RSVP & buku tamu
+  api/comments/route.ts   # API RSVP & buku tamu (publik, tulis ke MySQL)
+  api/admin/               # API dashboard admin (login, tamu, ucapan, stats)
+  admin/                   # Halaman dashboard admin (login, ringkasan, tamu, ucapan)
   layout.tsx               # Root layout, font, metadata
   page.tsx                 # Entry point halaman
   globals.css
@@ -97,12 +104,23 @@ components/
   Gallery.tsx
   GiftInfo.tsx                # Amplop digital
   Guestbook.tsx                # RSVP + ucapan
+  FloralOrnament.tsx / SectionDivider.tsx   # Ornamen bunga pink-lilac
   Navbar.tsx / MusicToggle.tsx / Footer.tsx / Reveal.tsx / confetti.ts
   InvitationApp.tsx            # Orkestrasi semua section
+  admin/AdminShell.tsx          # Sidebar & shell dashboard admin
 lib/
-  data.ts    # Semua konten undangan
-  db.ts      # Penyimpanan RSVP (file JSON — ganti untuk produksi)
+  data.ts       # Semua konten undangan
   types.ts
+  mysql.ts      # Koneksi pool MySQL (Aiven)
+  db.ts         # Data akses RSVP/ucapan
+  guests.ts     # Data akses tamu
+  session.ts    # Sesi login (JWT, aman untuk Edge middleware)
+  password.ts   # Hash & verifikasi password (bcrypt)
+  admins.ts     # Data akses akun admin
+  requireAdmin.ts
+sql/
+  schema.sql    # Skema tabel MySQL — jalankan sekali di database kamu
+middleware.ts   # Proteksi halaman /admin/*
 public/
   images/    # Foto (placeholder, ganti dengan fotomu)
   audio/     # Musik latar (placeholder, ganti dengan lagumu)

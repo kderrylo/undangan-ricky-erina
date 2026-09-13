@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Mail } from 'lucide-react';
 import { config } from '@/lib/data';
 import FloralOrnament from './FloralOrnament';
+import BouquetOrnament from './BouquetOrnament';
+import Monogram from './Monogram';
 
 export default function Cover({
   guestName,
@@ -24,12 +26,22 @@ export default function Cover({
         >
           <FloralOrnament className="pointer-events-none absolute -left-6 -top-6 h-40 w-40 text-primary-400 opacity-70 sm:h-52 sm:w-52" />
           <FloralOrnament flip className="pointer-events-none absolute -right-6 -bottom-6 h-40 w-40 text-lilac-400 opacity-70 sm:h-52 sm:w-52" />
+          <BouquetOrnament className="pointer-events-none absolute -right-8 -top-10 h-44 w-44 text-primary-400 opacity-60 sm:h-60 sm:w-60" />
+          <BouquetOrnament flip className="pointer-events-none absolute -left-8 -bottom-10 h-44 w-44 text-lilac-400 opacity-60 sm:h-60 sm:w-60" />
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.05, duration: 0.6 }}
+          >
+            <Monogram className="h-20 w-16 sm:h-24 sm:w-[76px]" />
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-sm uppercase tracking-[0.3em] text-primary-600"
+            className="mt-4 text-sm uppercase tracking-[0.3em] text-primary-600"
           >
             The Wedding Of
           </motion.p>
