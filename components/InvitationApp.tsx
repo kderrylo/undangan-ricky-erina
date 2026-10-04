@@ -9,7 +9,6 @@ import EventDetail from './EventDetail';
 import BibleVerse from './BibleVerse';
 import LoveStory from './LoveStory';
 import Gallery from './Gallery';
-import GiftInfo from './GiftInfo';
 import Guestbook from './Guestbook';
 import Navbar from './Navbar';
 import MusicToggle from './MusicToggle';
@@ -69,9 +68,8 @@ export default function InvitationApp() {
             <EventDetail />
             <BibleVerse />
             <LoveStory />
-            <Gallery />
-            <GiftInfo />
             <Guestbook initialName={guestName} guestSlug={guestSlug} />
+            <Gallery />
           </main>
           <Footer />
         </>

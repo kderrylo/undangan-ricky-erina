@@ -17,6 +17,8 @@ export const config = {
     instagram: '#',
     photo: '/images/bride.jpg',
   },
+  // Foto berdua, dipakai di komponen CoupleInfo (kartu foto + info acara).
+  couplePhoto: '/images/couplePhoto.jpg',
   // Tanggal & waktu acara (ISO 8601, sertakan timezone)
   weddingDate: '2026-12-26T12:00:00+07:00',
   events: [
@@ -48,14 +50,8 @@ export const config = {
     { year: '2026', title: 'Lamaran', desc: 'Sebuah janji diikat sebagai awal menuju hari bahagia ini.' },
     { year: '2026', title: 'Hari Bahagia', desc: 'Dengan restu kedua orang tua, kami memutuskan untuk melangkah ke jenjang pernikahan.' },
   ],
-  gallery: [
-    '/images/gallery-1.jpg',
-    '/images/gallery-2.jpg',
-    '/images/gallery-3.jpg',
-    '/images/gallery-4.jpg',
-    '/images/gallery-5.jpg',
-    '/images/gallery-6.jpg',
-  ],
+  // 10 foto galeri, taruh file aslinya di public/asset/galery/1.png s.d. 10.png
+  gallery: Array.from({ length: 10 }, (_, i) => `/asset/galery/${i + 1}.webp`),
   gift: {
     bank: [
       { bank: 'BCA', number: '3990439884', name: 'Paulus Ricky Kurnianda' },

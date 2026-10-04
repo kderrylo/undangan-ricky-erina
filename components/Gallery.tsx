@@ -1,37 +1,113 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState, PointerEvent as ReactPointerEvent } from 'react';
 import Image from 'next/image';
-import { X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { config } from '@/lib/data';
 import Reveal from './Reveal';
-import SectionDivider from './SectionDivider';
 
 export default function Gallery() {
+  const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<string | null>(null);
 
+  // State drag-to-scroll untuk mouse/trackpad (di HP, scroll sentuh sudah
+  // berjalan native lewat overflow-x-auto, jadi tidak perlu ditangani manual).
+  const dragRef = useRef({ isDown: false, startX: 0, startScrollLeft: 0, moved: false });
+
+  const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const track = trackRef.current;
+    if (!track) return;
+    dragRef.current = { isDown: true, startX: e.clientX, startScrollLeft: track.scrollLeft, moved: false };
+    track.setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const track = trackRef.current;
+    if (!track || !dragRef.current.isDown) return;
+    const delta = e.clientX - dragRef.current.startX;
+    if (Math.abs(delta) > 4) dragRef.current.moved = true;
+    track.scrollLeft = dragRef.current.startScrollLeft - delta;
+  };
+
+  const endDrag = () => {
+    dragRef.current.isDown = false;
+  };
+
+  const scrollByCard = (direction: 1 | -1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector<HTMLElement>('[data-gallery-card]');
+    const gap = 16;
+    const amount = (card?.offsetWidth ?? 240) + gap;
+    track.scrollBy({ left: direction * amount, behavior: 'smooth' });
+  };
+
+  const openPreview = (src: string) => {
+    // Jangan buka preview kalau klik ini sebenarnya akhir dari gestur drag/geser.
+    if (dragRef.current.moved) return;
+    setActive(src);
+  };
+
   return (
-    <section id="gallery" className="relative overflow-hidden bg-white px-6 py-20 dark:bg-primary-950/20">
+    <section id="gallery" className="relative overflow-hidden bg-primary-900 px-6 pt-20 pb-5 dark:bg-primary-950">
       <Reveal className="text-center">
-        <p className="text-sm uppercase tracking-[0.3em] text-primary-600">Momen</p>
-        <h2 className="mt-3 font-serif text-3xl font-semibold text-primary-800 dark:text-primary-100">
-          Galeri Foto
-        </h2>
-        <SectionDivider className="mt-4" />
+        <h2 className="font-script text-4xl text-white sm:text-5xl">Galeri</h2>
       </Reveal>
 
-      <div className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3">
-        {config.gallery.map((src, i) => (
-          <Reveal key={src} delay={i * 0.08}>
-            <button
-              onClick={() => setActive(src)}
-              className="relative block aspect-square w-full overflow-hidden rounded-xl shadow-md transition hover:opacity-90"
-            >
-              <Image src={src} alt={`Galeri ${i + 1}`} fill sizes="300px" className="object-cover" />
-            </button>
-          </Reveal>
-        ))}
+      <div className="relative mx-auto mt-12 max-w-5xl">
+        <div
+          ref={trackRef}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerLeave={endDrag}
+          className="scrollbar-hide flex cursor-grab select-none gap-4 overflow-x-auto px-1 pb-2 active:cursor-grabbing"
+          style={{ scrollSnapType: 'x mandatory', touchAction: 'pan-y' }}
+        >
+          {config.gallery.map((src, i) => (
+            <Reveal key={src} delay={i * 0.05} className="shrink-0">
+              <button
+                data-gallery-card
+                type="button"
+                onClick={() => openPreview(src)}
+                style={{ scrollSnapAlign: 'center' }}
+                className="relative block aspect-[4/5] w-[220px] overflow-hidden rounded-xl bg-primary-50 shadow-lg transition hover:opacity-90 sm:w-[280px]"
+              >
+                <Image
+                  src={src}
+                  alt={`Galeri ${i + 1}`}
+                  fill
+                  sizes="(min-width: 640px) 280px, 220px"
+                  draggable={false}
+                  className="pointer-events-none select-none object-cover"
+                />
+              </button>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Tombol navigasi, muncul dari sm ke atas */}
+        <button
+          type="button"
+          onClick={() => scrollByCard(-1)}
+          aria-label="Foto sebelumnya"
+          className="absolute left-0 top-1/2 hidden h-10 w-10 -translate-x-4 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-primary-800 shadow-md transition hover:bg-white sm:flex"
+        >
+          <ChevronLeft size={20} />
+        </button>
+        <button
+          type="button"
+          onClick={() => scrollByCard(1)}
+          aria-label="Foto berikutnya"
+          className="absolute right-0 top-1/2 hidden h-10 w-10 -translate-y-1/2 translate-x-4 items-center justify-center rounded-full bg-white/90 text-primary-800 shadow-md transition hover:bg-white sm:flex"
+        >
+          <ChevronRight size={20} />
+        </button>
       </div>
+
+      <p className="mt-5 text-center text-xs text-primary-200 sm:hidden">
+        Geser untuk melihat foto lainnya →
+      </p>
 
       {active && (
         <div
@@ -45,7 +121,10 @@ export default function Gallery() {
           >
             <X size={28} />
           </button>
-          <div className="relative h-[80vh] w-full max-w-2xl">
+          <div
+            className="relative h-[80vh] w-full max-w-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
             <Image src={active} alt="Preview" fill sizes="800px" className="object-contain" />
           </div>
         </div>
