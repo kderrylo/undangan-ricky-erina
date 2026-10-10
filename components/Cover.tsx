@@ -6,6 +6,8 @@ import { config } from '@/lib/data';
 import FloralOrnament from './FloralOrnament';
 import BouquetOrnament from './BouquetOrnament';
 import Monogram from './Monogram';
+import Image from 'next/image';
+import { fontSail } from './FontSail';
 
 export default function Cover({
   guestName,
@@ -78,4 +80,59 @@ export default function Cover({
       )}
     </AnimatePresence>
   );
+}
+
+type CoverType = {
+  guestName: string
+  isOpen: boolean
+  onOpen: () => void
+}
+
+export const Cover2 = (props: CoverType) => {
+  const { guestName, isOpen, onOpen } = props
+  return (
+    <>
+      <AnimatePresence>
+        <div
+          className='min-h-screen w-full bg-flower bg-center bg-cover'
+        >
+          <div className='h-screen w-full flex flex-col justify-center items-center'>
+            <div className='relative w-32 aspect-square'>
+              <Image src="/images/Logo_1_500x500.svg" alt='' fill className='relative' />
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="mt-20 mb-20 w-3/5 rounded-2xl min-w-96 max-w-screen-md bg-white/40 p-8 shadow-lg backdrop-blur flex flex-col items-center gap-4"
+            >
+              <p className="text-primary-rose font-bold tracking-widest">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+              <p className={"text-6xl font-semibold text-center text-primary-rose " + fontSail}>
+                {guestName || 'Tamu Undangan'}
+              </p>
+              <p className="text-primary-rose font-bold tracking-widest">di Tempat</p>
+              <button
+                onClick={onOpen}
+                className="inline-flex items-center gap-2 rounded-full bg-primary-rose px-16 py-3 text-sm font-medium text-white shadow-lg transition hover:bg-primary-700 active:scale-95"
+              >
+                <Mail size={18} />
+                Buka Undangan
+              </button>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.7 }}
+              className={"text-5xl text-primary-rose " + fontSail}
+            >
+              {config.groom.name} &amp; {config.bride.name}
+            </motion.h1>
+
+          </div>
+        </div>
+      </AnimatePresence>
+    </>
+  )
 }

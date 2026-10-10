@@ -30,6 +30,10 @@ body {
   background-size: 26px 26px;
 }
 
+.bg-flower {
+  background-image: url('/images/bg-flo1.webp');
+}
+
 /* Pita gradasi pink -> lilac -> gold sebagai aksen dekoratif */
 .gradient-wedding {
   background-image: linear-gradient(120deg, #e7a8de 0%, #c164b8 35%, #8f60bd 70%, #e8c46a 100%);

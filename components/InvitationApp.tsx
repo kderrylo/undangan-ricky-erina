@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import Cover from './Cover';
+import { Cover2 } from './Cover';
 import Hero from './Hero';
 import CoupleInfo from './CoupleInfo';
 import EventDetail from './EventDetail';
@@ -56,16 +56,16 @@ export default function InvitationApp() {
 
   return (
     <>
-      <Cover guestName={guestName} isOpen={isOpen} onOpen={handleOpen} />
+      <Cover2 guestName={guestName} isOpen={isOpen} onOpen={handleOpen} />
 
       {isOpen && (
         <>
           <MusicToggle autoPlay />
           <Navbar />
           <main>
-            <Hero />
+            {/* <Hero /> */}
             <CoupleInfo />
-            <EventDetail />
+            {/* <EventDetail /> */}
             <BibleVerse />
             <LoveStory />
             <Guestbook initialName={guestName} guestSlug={guestSlug} />

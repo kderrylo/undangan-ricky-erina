@@ -8,6 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        "primary-rose": "#9C5D6E",
         primary: {
           50: '#fdf6fb',
           100: '#fae8f6',

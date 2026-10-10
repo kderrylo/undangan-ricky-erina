@@ -112,12 +112,12 @@ export default function Guestbook({
     <section id="rsvp" className="relative overflow-hidden bg-white dark:bg-ink">
       {/* Background motif bunga, ditumpuk di atas BG putih */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-90 dark:opacity-20"
-        style={{
-          backgroundImage: 'url(/images/floral-pattern.png)',
-          backgroundRepeat: 'repeat',
-          backgroundSize: '480px auto',
-        }}
+        className="pointer-events-none absolute inset-0 opacity-90 bg-[url(/images/floral-pattern.png)] bg-repeat bg-size-[5rem]"
+        // style={{
+        //   backgroundImage: 'url(/images/floral-pattern.png)',
+        //   // backgroundRepeat: 'repeat',
+        //   backgroundSize: '480px auto',
+        // }}
       />
 
       <div className="relative mx-auto max-w-6xl px-6 py-20">

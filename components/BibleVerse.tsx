@@ -1,37 +1,33 @@
 import { config } from '@/lib/data';
 import Reveal from './Reveal';
-import ChurchOrnament from './ChurchOrnament';
-import SectionDivider from './SectionDivider';
+import { fontSail } from './FontSail';
+import Image from 'next/image';
 
 export default function BibleVerse() {
   return (
-    <section id="firman" className="relative overflow-hidden bg-white px-6 py-20 dark:bg-primary-950/20">
-      <ChurchOrnament className="pointer-events-none absolute -left-6 -top-2 h-40 w-40 text-primary-200 opacity-40 sm:h-56 sm:w-56" />
-      <ChurchOrnament flip className="pointer-events-none absolute -right-6 -top-2 h-40 w-40 text-lilac-200 opacity-40 sm:h-56 sm:w-56" />
+    <div className='relative'>
+      <section id="firman" className="relative h-screen w-full bg-white flex justify-end items-center px-32 gap-16">
 
-      <Reveal className="relative text-center">
-        <p className="text-sm uppercase tracking-[0.3em] text-primary-600">Firman Tuhan</p>
-        <h2 className="mt-3 font-serif text-3xl font-semibold text-primary-800 dark:text-primary-100">
-          Sabda tentang Kasih &amp; Pernikahan
-        </h2>
-        <SectionDivider className="mt-4" />
-      </Reveal>
+        <Reveal className='text-right'>
+          <p className={"text-5xl text-primary-rose mb-16 " + fontSail}>Firman Tuhan</p>
+          {config.bibleVerses.map((verse, i) => (
+            <Reveal
+              key={verse.reference}
+              delay={i * 0.12}
+              className='mb-10 '
+            >
+              <p className="text-lg italic text-primary-rose">{verse.text}</p>
+              <p className="text-lg font-semibold tracking-wide text-primary-rose">
+                {verse.reference}
+              </p>
+            </Reveal>
+          ))}
+        </Reveal>
 
-      <div className="relative mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-2">
-        {config.bibleVerses.map((verse, i) => (
-          <Reveal
-            key={verse.reference}
-            delay={i * 0.12}
-            className="rounded-2xl border border-primary-200 bg-white p-6 text-center shadow-sm dark:border-primary-800 dark:bg-primary-900/30"
-          >
-            <p className="font-script text-3xl leading-none text-primary-300">&ldquo;</p>
-            <p className="mt-1 text-sm italic text-primary-700 dark:text-primary-200">{verse.text}</p>
-            <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-primary-500 dark:text-primary-400">
-              {verse.reference}
-            </p>
-          </Reveal>
-        ))}
-      </div>
-    </section>
+        <Image src="/images/img-verse.webp" width={1080} height={1} alt='verse-img' className='w-[35%] object-contain' />
+
+      </section>
+      <Image src="/images/flo-ornament-1.webp" width={1080} height={1} alt='verse-img' className='absolute w-28 object-contain animate-float z-10 bottom-28 left-28' />
+    </div>
   );
 }

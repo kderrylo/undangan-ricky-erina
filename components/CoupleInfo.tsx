@@ -1,11 +1,12 @@
-import Image from 'next/image';
-import { config, EventConfig } from '@/lib/data';
-import Reveal from './Reveal';
+import Image from 'next/image'
+import { config, EventConfig } from '@/lib/data'
+import Reveal from './Reveal'
+import { fontSail } from './FontSail'
 
 function googleCalendarUrl(event: EventConfig) {
-  const title = encodeURIComponent(`${event.name} - ${config.groom.name} & ${config.bride.name}`);
-  const details = encodeURIComponent(`${event.location}, ${event.address}`);
-  const location = encodeURIComponent(event.address);
+  const title = encodeURIComponent(`${event.name} - ${config.groom.name} & ${config.bride.name}`)
+  const details = encodeURIComponent(`${event.location}, ${event.address}`)
+  const location = encodeURIComponent(event.address)
   return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}`;
 }
 
@@ -13,10 +14,10 @@ function AmpDivider({ className = '' }: { className?: string }) {
   return (
     <div className={`flex items-center justify-center gap-4 ${className}`}>
       <span className="h-px w-12 bg-current opacity-40 sm:w-16" />
-      <span className="font-script text-3xl leading-none">&amp;</span>
+      <span className={"text-3xl leading-none " + fontSail}>&amp;</span>
       <span className="h-px w-12 bg-current opacity-40 sm:w-16" />
     </div>
-  );
+  )
 }
 
 function EventMeta({ event, className = '' }: { event: EventConfig; className?: string }) {
@@ -39,8 +40,10 @@ export default function CoupleInfo() {
   const coupleAlt = `${config.groom.fullName} & ${config.bride.fullName}`;
 
   return (
-    <section id="couple" className="relative bg-white dark:bg-ink">
-      <Reveal className="relative w-full overflow-hidden sm:grid sm:grid-cols-2 sm:min-h-[680px]">
+    <div className='relative'>
+
+    <section id="couple" className="relative bg-white">
+      <Reveal className="relative h-screen w-full overflow-hidden sm:grid sm:grid-cols-2 sm:min-h-[680px]">
         {/* ===== Mobile: full screen foto dengan teks di atasnya ===== */}
         <div className="relative min-h-screen w-full overflow-hidden sm:hidden">
           <Image
@@ -50,18 +53,19 @@ export default function CoupleInfo() {
             sizes="100vw"
             className="object-cover"
             priority
-          />
+            />
           <div className="absolute inset-0 bg-gradient-to-b from-primary-900/60 via-primary-900/40 to-primary-950/75" />
+          
 
           <div className="relative flex h-full flex-col items-center justify-center px-6 py-10 text-center text-white">
-            <h3 className="font-script text-4xl">{config.groom.fullName}</h3>
+            <h3 className={"text-4xl " + fontSail}>{config.groom.fullName}</h3>
             <p className="mt-2 max-w-[240px] text-xs leading-relaxed text-white/90">
               {config.groom.parents}
             </p>
 
             <AmpDivider className="my-3 text-white/80" />
 
-            <h3 className="font-script text-4xl">{config.bride.fullName}</h3>
+            <h3 className={"text-4xl " + fontSail}>{config.bride.fullName}</h3>
             <p className="mt-2 max-w-[240px] text-xs leading-relaxed text-white/90">
               {config.bride.parents}
             </p>
@@ -77,7 +81,7 @@ export default function CoupleInfo() {
                 href={event.mapsUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-full bg-white py-2.5 text-xs font-semibold text-primary-800 shadow transition hover:bg-primary-50"
+                className="rounded-full bg-white py-2.5 text-xs font-semibold text-primary-rose shadow transition hover:bg-primary-50"
               >
                 Buka di Google Map
               </a>
@@ -103,42 +107,41 @@ export default function CoupleInfo() {
             className="object-cover"
           />
         </div>
-
-        <div className="hidden flex-col items-center justify-center bg-white px-10 py-14 text-center dark:bg-primary-950/20 sm:flex">
-          <h3 className="font-script text-4xl text-primary-800 dark:text-primary-100 lg:text-5xl">
+        <div className="hidden flex-col items-center justify-center bg-white px-10 py-14 text-center sm:flex">
+          <h3 className={"text-4xl lg:text-5xl " + fontSail}>
             {config.groom.fullName}
           </h3>
-          <p className="mt-3 max-w-xs text-sm text-primary-600 dark:text-primary-300">
+          <p className="mt-3 max-w-xs text-sm">
             {config.groom.parents}
           </p>
 
-          <AmpDivider className="my-5 text-primary-400" />
+          <AmpDivider className="my-5" />
 
-          <h3 className="font-script text-4xl text-primary-800 dark:text-primary-100 lg:text-5xl">
+          <h3 className={"text-4xl lg:text-5xl " + fontSail}>
             {config.bride.fullName}
           </h3>
-          <p className="mt-3 max-w-xs text-sm text-primary-600 dark:text-primary-300">
+          <p className="mt-3 max-w-xs text-sm">
             {config.bride.parents}
           </p>
 
-          <p className="mt-8 font-script text-3xl text-primary-700 dark:text-primary-200">
+          <p className={"mt-8 text-3xl " + fontSail}>
             Sakramen Perkawinan
           </p>
-          <p className="mt-3 text-sm font-semibold text-primary-800 dark:text-primary-100">
+          <p className="mt-3 text-sm font-semibold">
             {event.location}
           </p>
-          <p className="mt-1 max-w-sm text-xs text-primary-500 dark:text-primary-400">
+          <p className="mt-1 max-w-sm text-xs">
             {event.address}
           </p>
 
-          <EventMeta event={event} className="mt-5 text-primary-700 dark:text-primary-200" />
+          <EventMeta event={event} className="mt-5" />
 
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <a
               href={event.mapsUrl}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full bg-primary-700 px-6 py-2.5 text-xs font-semibold text-white shadow transition hover:bg-primary-800"
+              className="rounded-full bg-primary-rose px-6 py-2.5 text-xs font-semibold text-white shadow transition hover:bg-primary-800"
             >
               Buka di Google Map
             </a>
@@ -146,7 +149,7 @@ export default function CoupleInfo() {
               href={googleCalendarUrl(event)}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-primary-300 px-6 py-2.5 text-xs font-semibold text-primary-700 transition hover:bg-primary-50 dark:border-primary-700 dark:text-primary-200 dark:hover:bg-primary-900"
+              className="rounded-full border border-primary-rose px-6 py-2.5 text-xs font-semibold text-primary-rose transition hover:bg-primary-50"
             >
               Tambahkan ke Kalender
             </a>
@@ -154,5 +157,7 @@ export default function CoupleInfo() {
         </div>
       </Reveal>
     </section>
+      <Image src="/images/flo-ornament-2.webp" width={1080} height={1} alt='verse-img' className='absolute w-28 object-contain animate-float z-10 bottom-16 right-16' />
+    </div>
   );
 }

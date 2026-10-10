@@ -10,6 +10,8 @@ import '@fontsource/great-vibes/400.css';
 import './globals.css';
 import { config } from '@/lib/data';
 
+import {Plus_Jakarta_Sans} from "next/font/google"
+
 export const metadata: Metadata = {
   title: `Undangan Pernikahan ${config.groom.name} & ${config.bride.name}`,
   description: `Dengan penuh kebahagiaan, kami mengundang Anda untuk hadir di pernikahan ${config.groom.name} & ${config.bride.name}.`,
@@ -20,14 +22,18 @@ export const metadata: Metadata = {
   },
 };
 
+const pjs = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+})
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id">
-      <body className="font-sans antialiased">{children}</body>
+    <html lang="id" className={pjs.className}>
+      <body className="antialiased text-primary-rose">{children}</body>
     </html>
   );
 }
