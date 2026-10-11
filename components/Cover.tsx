@@ -96,8 +96,8 @@ export const Cover2 = (props: CoverType) => {
         <div
           className='min-h-screen w-full bg-flower bg-center bg-cover'
         >
-          <div className='h-screen w-full flex flex-col justify-center items-center'>
-            <div className='relative w-32 aspect-square'>
+          <div className='h-screen w-full flex flex-col justify-center items-center px-8'>
+            <div className='relative w-24 md:w-32 aspect-square'>
               <Image src="/images/Logo_1_500x500.svg" alt='' fill className='relative' />
             </div>
 
@@ -105,13 +105,13 @@ export const Cover2 = (props: CoverType) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
-              className="mt-20 mb-20 w-3/5 rounded-2xl min-w-96 max-w-screen-md bg-white/40 p-8 shadow-lg backdrop-blur flex flex-col items-center gap-4"
+              className="my-36 w-3/5 rounded-2xl min-w-fit md:min-w-96 max-w-screen-md bg-white/40 p-4 md:p-8 shadow-lg backdrop-blur flex flex-col items-center gap-4"
             >
-              <p className="text-primary-rose font-bold tracking-widest">Kepada Yth. Bapak/Ibu/Saudara/i</p>
-              <p className={"text-6xl font-semibold text-center text-primary-rose " + fontSail}>
+              <p className="text-primary-rose text-center font-bold text-sm md:text-base tracking-widest">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+              <p className={"text-3xl md:text-6xl font-semibold text-center line-clamp-2 text-primary-rose " + fontSail}>
                 {guestName || 'Tamu Undangan'}
               </p>
-              <p className="text-primary-rose font-bold tracking-widest">di Tempat</p>
+              <p className="text-primary-rose font-bold text-sm md:text-base tracking-widest">di Tempat</p>
               <button
                 onClick={onOpen}
                 className="inline-flex items-center gap-2 rounded-full bg-primary-rose px-16 py-3 text-sm font-medium text-white shadow-lg transition hover:bg-primary-darkrose active:scale-95"
@@ -125,7 +125,7 @@ export const Cover2 = (props: CoverType) => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.7 }}
-              className={"text-5xl text-primary-rose " + fontSail}
+              className={"text-3xl md:text-5xl text-center text-primary-rose " + fontSail}
             >
               {config.groom.name} &amp; {config.bride.name}
             </motion.h1>
