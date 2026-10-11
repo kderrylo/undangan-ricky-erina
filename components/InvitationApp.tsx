@@ -62,7 +62,7 @@ export default function InvitationApp() {
         <>
           <MusicToggle autoPlay />
           <Navbar />
-          <main>
+          <main className='relative'>
             {/* <Hero /> */}
             <CoupleInfo />
             {/* <EventDetail /> */}

@@ -45,10 +45,10 @@ export const config = {
   ],
 
   loveStory: [
-    { year: '2022', title: 'Pertama Bertemu', desc: 'Dipertemukan di sebuah acara kampus yang tidak pernah kami duga akan mengubah hidup kami.' },
-    { year: '2023', title: 'Mulai Dekat', desc: 'Perlahan kebersamaan tumbuh menjadi kisah yang lebih serius.' },
-    { year: '2026', title: 'Lamaran', desc: 'Sebuah janji diikat sebagai awal menuju hari bahagia ini.' },
-    { year: '2026', title: 'Hari Bahagia', desc: 'Dengan restu kedua orang tua, kami memutuskan untuk melangkah ke jenjang pernikahan.' },
+    { year: '2022', img: '/images/story-1.webp', title: 'Pertama Bertemu', desc: 'Dipertemukan di sebuah acara kampus yang tidak pernah kami duga akan mengubah hidup kami.' },
+    { year: '2023', img: '/images/story-2.webp', title: 'Mulai Dekat', desc: 'Perlahan kebersamaan tumbuh menjadi kisah yang lebih serius.' },
+    { year: '2026', img: '/images/story-3.webp', title: 'Lamaran', desc: 'Sebuah janji diikat sebagai awal menuju hari bahagia ini.' },
+    { year: '2026', img: '/images/story-4.webp', title: 'Hari Bahagia', desc: 'Dengan restu kedua orang tua, kami memutuskan untuk melangkah ke jenjang pernikahan.' },
   ],
   // 10 foto galeri, taruh file aslinya di public/asset/galery/1.png s.d. 10.png
   gallery: Array.from({ length: 10 }, (_, i) => `/asset/galery/${i + 1}.webp`),
