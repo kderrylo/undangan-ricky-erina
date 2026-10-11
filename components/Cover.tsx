@@ -114,7 +114,7 @@ export const Cover2 = (props: CoverType) => {
               <p className="text-primary-rose font-bold tracking-widest">di Tempat</p>
               <button
                 onClick={onOpen}
-                className="inline-flex items-center gap-2 rounded-full bg-primary-rose px-16 py-3 text-sm font-medium text-white shadow-lg transition hover:bg-primary-700 active:scale-95"
+                className="inline-flex items-center gap-2 rounded-full bg-primary-rose px-16 py-3 text-sm font-medium text-white shadow-lg transition hover:bg-primary-darkrose active:scale-95"
               >
                 <Mail size={18} />
                 Buka Undangan

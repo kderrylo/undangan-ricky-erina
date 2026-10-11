@@ -38,18 +38,29 @@ const CardItem = (item: CardItemProps) => {
   )
 }
 
+function DotDivider() {
+  return (
+    <div className="flex items-center justify-center gap-3">
+      <span className="h-px w-14 bg-primary-rose" />
+      <span className="h-1.5 w-1.5 rounded-full bg-primary-rose" />
+      <span className="h-px w-14 bg-primary-rose" />
+    </div>
+  );
+}
+
 export default function LoveStory() {
   return (
     <div className='relative'>
-      <div className='w-full h-32 bg-flower'/>
+      <div className='w-full h-16 bg-flower'/>
       <section id="story" className="relative bg-[#FCECED] px-6 py-20 w-full flex flex-col items-center">
-        <Reveal className="relative text-center">
-          <h2 className={"mb-8 font-serif text-5xl font-semibold text-primary-rose " + fontSail} >
+        <Reveal className="relative text-center mb-8">
+          <h2 className={"font-serif mb-4 text-5xl font-semibold text-primary-rose " + fontSail} >
             Love Story
           </h2>
+          <DotDivider />
         </Reveal>
 
-        <div className='relative flex gap-4 w-4/5'>
+        <div className='relative flex gap-4 w-4/5 max-w-screen-lg'>
           {
             config.loveStory.map((item, i) => (
               <CardItem
@@ -64,7 +75,7 @@ export default function LoveStory() {
           }
         </div>
       </section>
-      <div className='w-full h-32 bg-flower bg-bottom'/>
+      <div className='w-full h-16 bg-flower bg-bottom'/>
     </div>
   );
 }

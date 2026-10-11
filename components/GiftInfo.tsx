@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Copy, Check, Home } from 'lucide-react';
 import { config } from '@/lib/data';
 import Reveal from './Reveal';
+import { fontSail } from './FontSail';
 
 /**
  * Panel "Tanda Kasih" — dirender sebagai kolom kanan di dalam section gabungan
@@ -27,10 +28,10 @@ export default function GiftInfo() {
   return (
     <div id="gift" className="relative">
       <Reveal className="text-center lg:text-left">
-        <h2 className="font-script text-4xl text-primary-800 dark:text-primary-100">
+        <h2 className={"font-script text-4xl text-primary-rose " + fontSail}>
           Tanda Kasih
         </h2>
-        <p className="mx-auto mt-3 max-w-md text-sm text-primary-600 dark:text-primary-300 lg:mx-0">
+        <p className="mx-auto mt-3 max-w-md text-primary-rose lg:mx-0">
           Doa restu Anda adalah hadiah yang paling berarti bagi kami. Namun jika ingin memberi
           tanda kasih, dapat melalui:
         </p>
@@ -42,20 +43,20 @@ export default function GiftInfo() {
           return (
             <Reveal
               key={key}
-              className="flex items-center justify-between rounded-2xl border border-primary-200 bg-white/80 p-4 dark:border-primary-800 dark:bg-primary-900/30"
+              className="flex items-center justify-between rounded-2xl border border-primary-rose bg-white/80 p-4"
             >
               <div>
-                <p className="text-sm font-semibold text-primary-800 dark:text-primary-100">
+                <p className="font-semibold text-primary-rose">
                   {b.bank}
                 </p>
-                <p className="mt-0.5 font-mono text-base font-semibold text-primary-700 dark:text-primary-200">
+                <p className="mt-0.5 font-mono text-base font-semibold text-primary-rose">
                   {b.number}
                 </p>
-                <p className="text-xs text-primary-500 dark:text-primary-400">a.n. {b.name}</p>
+                <p className="text-primary-rose">a.n. {b.name}</p>
               </div>
               <button
                 onClick={() => copy(b.number, key)}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary-600 px-3.5 py-2 text-xs font-medium text-white transition hover:bg-primary-700"
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary-rose px-3.5 py-2 text-xs font-medium text-white transition hover:bg-primary-darkrose"
               >
                 {copied === key ? <Check size={14} /> : <Copy size={14} />}
                 {copied === key ? 'Tersalin' : 'Salin'}
@@ -64,18 +65,18 @@ export default function GiftInfo() {
           );
         })}
 
-        <Reveal className="flex items-start gap-3 rounded-2xl border border-primary-200 bg-white/80 p-4 dark:border-primary-800 dark:bg-primary-900/30">
-          <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-100 text-primary-600 dark:bg-primary-800 dark:text-primary-200">
+        <Reveal className="flex items-start gap-3 rounded-2xl border border-primary-rose bg-white/80 p-4">
+          <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-100 text-primary-rose">
             <Home size={16} />
           </span>
           <div>
-            <p className="text-sm font-semibold text-primary-800 dark:text-primary-100">
+            <p className="font-semibold text-primary-rose">
               Kirim Kado
             </p>
-            <p className="text-sm text-primary-700 dark:text-primary-200">
+            <p className="text-primary-rose">
               {config.gift.address.recipient}
             </p>
-            <p className="text-xs text-primary-500 dark:text-primary-400">
+            <p className="text-primary-rose">
               {config.gift.address.address}
             </p>
           </div>

@@ -5,6 +5,17 @@ import Image from 'next/image';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { config } from '@/lib/data';
 import Reveal from './Reveal';
+import { fontSail } from './FontSail';
+
+function DotDivider() {
+  return (
+    <div className="flex items-center justify-center gap-3">
+      <span className="h-px w-14 bg-white" />
+      <span className="h-1.5 w-1.5 rounded-full bg-white" />
+      <span className="h-px w-14 bg-white" />
+    </div>
+  );
+}
 
 export default function Gallery() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -49,9 +60,10 @@ export default function Gallery() {
   };
 
   return (
-    <section id="gallery" className="relative overflow-hidden bg-primary-900 px-6 pt-20 pb-5 dark:bg-primary-950">
-      <Reveal className="text-center">
-        <h2 className="font-script text-4xl text-white sm:text-5xl">Galeri</h2>
+    <section id="gallery" className="relative overflow-hidden bg-primary-rose px-6 pt-20 pb-5">
+      <Reveal className="flex flex-col items-center">
+        <h2 className={"mb-4 font-script text-5xl text-white " + fontSail}>Galeri</h2>
+        <DotDivider />
       </Reveal>
 
       <div className="relative mx-auto mt-12 max-w-5xl">

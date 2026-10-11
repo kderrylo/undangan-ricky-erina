@@ -1,10 +1,12 @@
 'use client';
 
 import { useEffect, useState, FormEvent } from 'react';
-import { Send, Loader2 } from 'lucide-react';
+import { Send, Loader2, Plus, Minus } from 'lucide-react';
 import { Attendance, Comment } from '@/lib/types';
 import Reveal from './Reveal';
 import GiftInfo from './GiftInfo';
+import { fontSail } from './FontSail';
+import Image from 'next/image';
 
 const ATTENDANCE_OPTIONS: { value: Attendance; label: string }[] = [
   { value: 'hadir', label: 'Hadir' },
@@ -27,9 +29,9 @@ function timeAgo(dateStr: string) {
 function DotDivider() {
   return (
     <div className="flex items-center justify-center gap-3">
-      <span className="h-px w-14 bg-primary-300" />
-      <span className="h-1.5 w-1.5 rounded-full bg-primary-500" />
-      <span className="h-px w-14 bg-primary-300" />
+      <span className="h-px w-14 bg-primary-rose" />
+      <span className="h-1.5 w-1.5 rounded-full bg-primary-rose" />
+      <span className="h-px w-14 bg-primary-rose" />
     </div>
   );
 }
@@ -109,24 +111,17 @@ export default function Guestbook({
   const submitLabel = ATTENDANCE_OPTIONS.find((o) => o.value === attendance)?.label ?? 'Kirim';
 
   return (
-    <section id="rsvp" className="relative overflow-hidden bg-white dark:bg-ink">
-      {/* Background motif bunga, ditumpuk di atas BG putih */}
+    <section id="rsvp" className="relative overflow-hidden bg-white">
       <div
-        className="pointer-events-none absolute inset-0 opacity-90 bg-[url(/images/floral-pattern.png)] bg-repeat bg-size-[5rem]"
-        // style={{
-        //   backgroundImage: 'url(/images/floral-pattern.png)',
-        //   // backgroundRepeat: 'repeat',
-        //   backgroundSize: '480px auto',
-        // }}
+        className="pointer-events-none absolute inset-0 opacity-90 bg-[url(/images/floral-pattern.png)]"
       />
 
-      <div className="relative mx-auto max-w-6xl px-6 py-20">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 py-20">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
-          {/* ===== Kolom 1 (mobile: atas): Konfirmasi Kehadiran ===== */}
           <Reveal>
-            <div className="rounded-3xl bg-primary-100/70 p-6 shadow-sm backdrop-blur-sm dark:bg-primary-900/40 sm:p-9">
+            <div className="rounded-3xl bg-[#FFC8E0]/20 p-6 shadow-lg backdrop-blur-sm sm:p-9">
               <div className="text-center">
-                <h2 className="font-script text-4xl text-primary-800 dark:text-primary-100">
+                <h2 className={"font-script text-4xl text-primary-rose " + fontSail}>
                   Konfirmasi Kehadiran
                 </h2>
                 <DotDivider />
@@ -134,7 +129,7 @@ export default function Guestbook({
 
               <form onSubmit={handleSubmit} className="mt-7 space-y-5">
                 <div>
-                  <label className="mb-1.5 block text-sm text-primary-700 dark:text-primary-200">
+                  <label className="mb-1.5 block text-sm text-primary-rose">
                     Nama:
                   </label>
                   <input
@@ -146,7 +141,7 @@ export default function Guestbook({
                     required
                     maxLength={60}
                     placeholder="Nama Anda"
-                    className="w-full rounded-lg border border-primary-200 bg-white px-3.5 py-2.5 text-sm outline-none focus:border-primary-500 dark:border-primary-700 dark:bg-primary-950/40 dark:text-primary-100"
+                    className="w-full rounded-lg border border-primary-rose bg-white px-3.5 py-2.5 text-sm outline-none focus:border-primary-500"
                   />
                 </div>
 
@@ -160,8 +155,8 @@ export default function Guestbook({
                         onClick={() => setAttendance(opt.value)}
                         className={`rounded-lg px-3 py-3 text-sm font-medium transition ${
                           active
-                            ? 'bg-primary-600 text-white'
-                            : 'border border-primary-200 bg-white text-primary-700 hover:bg-primary-50 dark:border-primary-700 dark:bg-transparent dark:text-primary-200'
+                            ? 'bg-primary-rose text-white hover:bg-primary-darkrose'
+                          : 'border border-primary-rose text-primary-rose hover:border-primary-darkrose hover:text-primary-darkrose'
                         }`}
                       >
                         {opt.label}
@@ -172,35 +167,35 @@ export default function Guestbook({
 
                 {attendance !== 'tidak_hadir' && (
                   <div>
-                    <label className="mb-1.5 block text-sm text-primary-700 dark:text-primary-200">
+                    <label className="mb-1.5 block text-sm text-primary-rose">
                       Jumlah tamu:
                     </label>
                     <div className="flex items-center gap-4">
                       <button
                         type="button"
                         onClick={() => setAttendeeCount((v) => Math.max(1, v - 1))}
-                        className="flex h-9 w-9 items-center justify-center rounded-md bg-primary-600 text-base font-semibold text-white transition hover:bg-primary-700"
+                        className="flex size-6 items-center justify-center rounded-md border border-primary-rose text-base font-semibold text-primary-rose transition hover:text-white hover:bg-primary-rose"
                         aria-label="Kurangi jumlah tamu"
                       >
-                        −
+                        <Minus size={15} />
                       </button>
-                      <span className="text-base font-semibold text-primary-800 dark:text-primary-100">
+                      <span className="text-base font-semibold text-primary-rose">
                         {attendeeCount}
                       </span>
                       <button
                         type="button"
-                        onClick={() => setAttendeeCount((v) => Math.min(10, v + 1))}
-                        className="flex h-9 w-9 items-center justify-center rounded-md border border-primary-300 text-base font-semibold text-primary-600 transition hover:bg-primary-50 dark:border-primary-700 dark:text-primary-300"
+                        onClick={() => setAttendeeCount((v) => Math.min(3, v + 1))}
+                        className="flex size-6 items-center justify-center rounded-md border border-primary-rose text-base font-semibold text-primary-rose transition hover:text-white hover:bg-primary-rose"
                         aria-label="Tambah jumlah tamu"
                       >
-                        +
+                        <Plus size={15} />
                       </button>
                     </div>
                   </div>
                 )}
 
                 <div>
-                  <label className="mb-1.5 block text-sm text-primary-700 dark:text-primary-200">
+                  <label className="mb-1.5 block text-sm text-primary-rose">
                     Pesan untuk mempelai:
                   </label>
                   <textarea
@@ -210,9 +205,9 @@ export default function Guestbook({
                     maxLength={MESSAGE_MAX_LENGTH}
                     rows={4}
                     placeholder="Tuliskan ucapan dan doa terbaikmu..."
-                    className="w-full resize-none rounded-lg border border-primary-200 bg-white px-3.5 py-2.5 text-sm outline-none focus:border-primary-500 dark:border-primary-700 dark:bg-primary-950/40 dark:text-primary-100"
+                    className="w-full resize-none rounded-lg border border-primary-rose bg-white px-3.5 py-2.5 text-sm outline-none focus:border-primary-500 dark:bg-primary-950/40"
                   />
-                  <p className="mt-1 text-right text-xs text-primary-400">
+                  <p className="mt-1 text-right text-xs text-primary-rose">
                     {message.length}/{MESSAGE_MAX_LENGTH} karakter
                   </p>
                 </div>
@@ -222,7 +217,7 @@ export default function Guestbook({
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-700 px-4 py-3 text-sm font-medium text-white transition hover:bg-primary-800 disabled:opacity-60"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-rose px-4 py-3 text-sm font-medium text-white transition hover:bg-primary-darkrose disabled:opacity-60"
                 >
                   {submitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
                   {submitLabel}
@@ -238,40 +233,45 @@ export default function Guestbook({
         </div>
 
         {/* Daftar ucapan yang sudah masuk */}
-        <div className="mx-auto mt-16 max-w-lg space-y-4">
+        <div className="relative z-10 mx-auto mt-16 max-w-prose space-y-4 text-primary-rose">
           {!loading && (
-            <p className="text-center text-xs text-primary-500 dark:text-primary-400">
+            <p className="text-center text-sm">
               {comments.filter((c) => c.attendance === 'hadir').length} orang telah mengonfirmasi
               hadir · {comments.length} ucapan
             </p>
           )}
           {loading && (
-            <p className="text-center text-sm text-primary-500">Memuat ucapan...</p>
+            <p className="text-center text-sm">Memuat ucapan...</p>
           )}
           {!loading && comments.length === 0 && (
-            <p className="text-center text-sm text-primary-500">
+            <p className="text-center text-sm">
               Jadilah yang pertama mengirimkan ucapan.
             </p>
           )}
-          {comments.map((c) => (
-            <div
-              key={c.id}
-              className="rounded-xl border border-primary-200 bg-white/90 p-4 shadow-sm dark:border-primary-800 dark:bg-primary-900/30"
-            >
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-semibold text-primary-800 dark:text-primary-100">
-                  {c.name}
+          <div className='grid grid-cols-2 w-full gap-2'>
+            {comments.map((c) => (
+              <div
+                key={c.id}
+                className="rounded-xl bg-[#FCECED] p-4"
+              >
+                <div className="flex items-center justify-between">
+                  <p className="font-semibold text-primary-rose leading-3">
+                    {c.name}
+                  </p>
+                  <span className="text-xs text-primary-rose/50">{timeAgo(c.createdAt)}</span>
+                </div>
+                <p className="mt-1 text-sm font-medium text-primary-rose/50">
+                  {ATTENDANCE_OPTIONS.find((o) => o.value === c.attendance)?.label}
                 </p>
-                <span className="text-xs text-primary-400">{timeAgo(c.createdAt)}</span>
+                <p className="mt-2 text-primary-rose">{c.message}</p>
               </div>
-              <p className="mt-1 text-xs font-medium text-primary-500">
-                {ATTENDANCE_OPTIONS.find((o) => o.value === c.attendance)?.label}
-              </p>
-              <p className="mt-2 text-sm text-primary-700 dark:text-primary-200">{c.message}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
+
+      <Image src="/images/flower-facing-left.webp" alt="deco" width={500} height={1} className='w-96 absolute z-0 bottom-0 -right-28' />
+      <Image src="/images/flower-facing-left.webp" alt="deco" width={500} height={1} className='w-96 -scale-x-100 absolute z-0 bottom-0 -left-28' />
     </section>
   );
 }
