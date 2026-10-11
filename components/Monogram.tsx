@@ -32,11 +32,11 @@ export default function Monogram({ className = '' }: { className?: string }) {
       </svg>
 
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className="font-serif text-2xl font-semibold leading-none tracking-tight text-primary-700 dark:text-primary-200">
+        <span className="font-serif text-2xl font-semibold leading-none tracking-tight text-primary-700">
           P
         </span>
         <span className="mx-0.5 h-5 w-px bg-primary-300" />
-        <span className="font-serif text-2xl font-semibold leading-none tracking-tight text-primary-700 dark:text-primary-200">
+        <span className="font-serif text-2xl font-semibold leading-none tracking-tight text-primary-700">
           E
         </span>
       </div>

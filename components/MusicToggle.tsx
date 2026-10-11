@@ -33,7 +33,7 @@ export default function MusicToggle({ autoPlay }: { autoPlay: boolean }) {
       <button
         onClick={toggle}
         aria-label={playing ? 'Jeda musik' : 'Putar musik'}
-        className={`fixed right-4 top-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-primary-200 bg-white/90 text-primary-600 shadow-lg backdrop-blur transition dark:border-primary-800 dark:bg-primary-950/90 dark:text-primary-300 ${
+        className={`fixed right-4 top-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-primary-200 bg-white/90 text-primary-600 shadow-lg backdrop-blur transition ${
           playing ? 'animate-pulse' : ''
         }`}
       >

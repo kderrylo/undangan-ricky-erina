@@ -205,7 +205,7 @@ export default function Guestbook({
                     maxLength={MESSAGE_MAX_LENGTH}
                     rows={4}
                     placeholder="Tuliskan ucapan dan doa terbaikmu..."
-                    className="w-full resize-none rounded-lg border border-primary-rose bg-white px-3.5 py-2.5 outline-none focus:border-primary-500 dark:bg-primary-950/40"
+                    className="w-full resize-none rounded-lg border border-primary-rose bg-white px-3.5 py-2.5 outline-none focus:border-primary-500"
                   />
                   <p className="mt-1 text-right text-xs text-primary-rose">
                     {message.length}/{MESSAGE_MAX_LENGTH} karakter

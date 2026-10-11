@@ -24,7 +24,7 @@ export default function Cover({
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.8, ease: 'easeInOut' } }}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-batik bg-primary-50 dark:bg-ink px-6 text-center"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-batik bg-primary-50 px-6 text-center"
         >
           <FloralOrnament className="pointer-events-none absolute -left-6 -top-6 h-40 w-40 text-primary-400 opacity-70 sm:h-52 sm:w-52" />
           <FloralOrnament flip className="pointer-events-none absolute -right-6 -bottom-6 h-40 w-40 text-lilac-400 opacity-70 sm:h-52 sm:w-52" />
@@ -52,7 +52,7 @@ export default function Cover({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.7 }}
-            className="mt-4 font-script text-6xl sm:text-7xl text-primary-800 dark:text-primary-100"
+            className="mt-4 font-script text-6xl sm:text-7xl text-primary-800"
           >
             {config.groom.name} &amp; {config.bride.name}
           </motion.h1>
@@ -61,10 +61,10 @@ export default function Cover({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="mt-10 w-full max-w-sm rounded-2xl border border-primary-200 bg-white/70 dark:bg-primary-900/40 p-6 shadow-xl backdrop-blur"
+            className="mt-10 w-full max-w-sm rounded-2xl border border-primary-200 bg-white/70 p-6 shadow-xl backdrop-blur"
           >
-            <p className="text-sm text-primary-700 dark:text-primary-200">Kepada Yth. Bapak/Ibu/Saudara/i</p>
-            <p className="mt-2 font-serif text-xl font-semibold text-primary-800 dark:text-primary-100">
+            <p className="text-sm text-primary-700">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+            <p className="mt-2 font-serif text-xl font-semibold text-primary-800">
               {guestName || 'Tamu Undangan'}
             </p>
 

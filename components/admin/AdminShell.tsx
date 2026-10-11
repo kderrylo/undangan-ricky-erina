@@ -22,10 +22,10 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <div className="min-h-screen bg-primary-50 dark:bg-ink">
+    <div className="min-h-screen bg-primary-50">
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-6 sm:flex-row">
         <aside className="shrink-0 sm:w-56">
-          <div className="flex items-center gap-2 px-2 py-3 font-script text-2xl text-primary-700 dark:text-primary-200">
+          <div className="flex items-center gap-2 px-2 py-3 font-script text-2xl text-primary-700">
             <Heart size={18} className="fill-current text-primary-500" />
             {config.groom.name} &amp; {config.bride.name}
           </div>
@@ -40,7 +40,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
                   className={`flex items-center gap-2 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition ${
                     active
                       ? 'bg-primary-600 text-white shadow-sm'
-                      : 'text-primary-700 hover:bg-primary-100 dark:text-primary-200 dark:hover:bg-primary-900/40'
+                      : 'text-primary-700 hover:bg-primary-100'
                   }`}
                 >
                   <Icon size={16} />
@@ -50,7 +50,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
             })}
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50 dark:hover:bg-red-950/30"
+              className="flex items-center gap-2 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50"
             >
               <LogOut size={16} />
               Keluar

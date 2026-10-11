@@ -91,34 +91,34 @@ export default function AdminGuestsPage() {
 
   return (
     <div>
-      <h1 className="font-serif text-2xl font-semibold text-primary-800 dark:text-primary-100">
+      <h1 className="font-serif text-2xl font-semibold text-primary-800">
         Data Tamu
       </h1>
-      <p className="mt-1 text-sm text-primary-500 dark:text-primary-400">
+      <p className="mt-1 text-sm text-primary-500">
         Tambahkan tamu untuk mendapatkan link undangan personal (mis. bisa dikirim lewat WhatsApp).
       </p>
 
       <form
         onSubmit={handleAdd}
-        className="mt-6 grid gap-3 rounded-2xl border border-primary-200 bg-white p-5 shadow-sm dark:border-primary-800 dark:bg-primary-900/30 sm:grid-cols-5"
+        className="mt-6 grid gap-3 rounded-2xl border border-primary-200 bg-white p-5 shadow-sm sm:grid-cols-5"
       >
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Nama tamu"
           required
-          className="rounded-lg border border-primary-200 bg-primary-50 px-3 py-2 text-sm outline-none focus:border-primary-500 dark:border-primary-700 dark:bg-primary-950/40 dark:text-primary-100 sm:col-span-2"
+          className="rounded-lg border border-primary-200 bg-primary-50 px-3 py-2 text-sm outline-none focus:border-primary-500 sm:col-span-2"
         />
         <input
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="No. WhatsApp (opsional)"
-          className="rounded-lg border border-primary-200 bg-primary-50 px-3 py-2 text-sm outline-none focus:border-primary-500 dark:border-primary-700 dark:bg-primary-950/40 dark:text-primary-100"
+          className="rounded-lg border border-primary-200 bg-primary-50 px-3 py-2 text-sm outline-none focus:border-primary-500"
         />
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="rounded-lg border border-primary-200 bg-primary-50 px-3 py-2 text-sm outline-none focus:border-primary-500 dark:border-primary-700 dark:bg-primary-950/40 dark:text-primary-100"
+          className="rounded-lg border border-primary-200 bg-primary-50 px-3 py-2 text-sm outline-none focus:border-primary-500"
         >
           <option>Umum</option>
           <option>Keluarga</option>
@@ -131,7 +131,7 @@ export default function AdminGuestsPage() {
           max={10}
           value={invitedCount}
           onChange={(e) => setInvitedCount(Number(e.target.value))}
-          className="rounded-lg border border-primary-200 bg-primary-50 px-3 py-2 text-sm outline-none focus:border-primary-500 dark:border-primary-700 dark:bg-primary-950/40 dark:text-primary-100"
+          className="rounded-lg border border-primary-200 bg-primary-50 px-3 py-2 text-sm outline-none focus:border-primary-500"
         />
         <button
           type="submit"
@@ -153,13 +153,13 @@ export default function AdminGuestsPage() {
             loadGuests(e.target.value);
           }}
           placeholder="Cari nama tamu..."
-          className="w-full max-w-sm rounded-lg border border-primary-200 bg-white px-3 py-2 text-sm outline-none focus:border-primary-500 dark:border-primary-700 dark:bg-primary-900/30 dark:text-primary-100"
+          className="w-full max-w-sm rounded-lg border border-primary-200 bg-white px-3 py-2 text-sm outline-none focus:border-primary-500"
         />
       </div>
 
-      <div className="mt-4 overflow-x-auto rounded-2xl border border-primary-200 bg-white shadow-sm dark:border-primary-800 dark:bg-primary-900/30">
+      <div className="mt-4 overflow-x-auto rounded-2xl border border-primary-200 bg-white shadow-sm">
         <table className="w-full min-w-[640px] text-left text-sm">
-          <thead className="border-b border-primary-100 text-xs uppercase text-primary-400 dark:border-primary-800">
+          <thead className="border-b border-primary-100 text-xs uppercase text-primary-400">
             <tr>
               <th className="px-4 py-3">Nama</th>
               <th className="px-4 py-3">Kategori</th>
@@ -184,20 +184,20 @@ export default function AdminGuestsPage() {
               </tr>
             )}
             {guests.map((guest) => (
-              <tr key={guest.id} className="border-b border-primary-50 last:border-0 dark:border-primary-800/60">
+              <tr key={guest.id} className="border-b border-primary-50 last:border-0/60">
                 <td className="px-4 py-3">
-                  <p className="font-medium text-primary-800 dark:text-primary-100">{guest.name}</p>
+                  <p className="font-medium text-primary-800">{guest.name}</p>
                   {guest.phone && <p className="text-xs text-primary-400">{guest.phone}</p>}
                 </td>
-                <td className="px-4 py-3 text-primary-600 dark:text-primary-300">{guest.category}</td>
-                <td className="px-4 py-3 text-primary-600 dark:text-primary-300">{guest.invitedCount}</td>
+                <td className="px-4 py-3 text-primary-600">{guest.category}</td>
+                <td className="px-4 py-3 text-primary-600">{guest.invitedCount}</td>
                 <td className="px-4 py-3">
                   <button
                     onClick={() => toggleSent(guest)}
                     className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${
                       guest.isSent
-                        ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300'
-                        : 'bg-primary-100 text-primary-600 dark:bg-primary-800 dark:text-primary-300'
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-primary-100 text-primary-600'
                     }`}
                   >
                     <Send size={12} />
@@ -209,14 +209,14 @@ export default function AdminGuestsPage() {
                     <button
                       onClick={() => copyLink(guest)}
                       title="Salin link undangan"
-                      className="rounded-full p-2 text-primary-500 transition hover:bg-primary-100 dark:hover:bg-primary-800"
+                      className="rounded-full p-2 text-primary-500 transition hover:bg-primary-100"
                     >
                       {copiedId === guest.id ? <Check size={16} /> : <Copy size={16} />}
                     </button>
                     <button
                       onClick={() => removeGuest(guest)}
                       title="Hapus tamu"
-                      className="rounded-full p-2 text-red-500 transition hover:bg-red-50 dark:hover:bg-red-950/30"
+                      className="rounded-full p-2 text-red-500 transition hover:bg-red-50"
                     >
                       <Trash2 size={16} />
                     </button>

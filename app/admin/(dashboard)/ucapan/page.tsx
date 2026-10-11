@@ -5,8 +5,8 @@ import { Pin, PinOff, Trash2, CheckCircle2, XCircle } from 'lucide-react';
 import { Comment } from '@/lib/types';
 
 const BADGE: Record<Comment['attendance'], { label: string; icon: typeof CheckCircle2; className: string }> = {
-  hadir: { label: 'Hadir', icon: CheckCircle2, className: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' },
-  tidak_hadir: { label: 'Tidak Hadir', icon: XCircle, className: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' },
+  hadir: { label: 'Hadir', icon: CheckCircle2, className: 'bg-green-100 text-green-700' },
+  tidak_hadir: { label: 'Tidak Hadir', icon: XCircle, className: 'bg-red-100 text-red-700' },
 };
 
 export default function AdminUcapanPage() {
@@ -49,10 +49,10 @@ export default function AdminUcapanPage() {
 
   return (
     <div>
-      <h1 className="font-serif text-2xl font-semibold text-primary-800 dark:text-primary-100">
+      <h1 className="font-serif text-2xl font-semibold text-primary-800">
         Ucapan &amp; RSVP
       </h1>
-      <p className="mt-1 text-sm text-primary-500 dark:text-primary-400">
+      <p className="mt-1 text-sm text-primary-500">
         Kelola ucapan yang masuk. Sematkan (pin) ucapan favorit agar tampil di urutan atas.
       </p>
 
@@ -69,11 +69,11 @@ export default function AdminUcapanPage() {
           return (
             <div
               key={c.id}
-              className="rounded-2xl border border-primary-200 bg-white p-4 shadow-sm dark:border-primary-800 dark:bg-primary-900/30"
+              className="rounded-2xl border border-primary-200 bg-white p-4 shadow-sm"
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
-                  <p className="font-medium text-primary-800 dark:text-primary-100">{c.name}</p>
+                  <p className="font-medium text-primary-800">{c.name}</p>
                   <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${badge.className}`}>
                     <Icon size={12} /> {badge.label}
                   </span>
@@ -83,20 +83,20 @@ export default function AdminUcapanPage() {
                   <button
                     onClick={() => togglePin(c)}
                     title={c.isPinned ? 'Lepas sematan' : 'Sematkan'}
-                    className="rounded-full p-2 text-primary-500 transition hover:bg-primary-100 dark:hover:bg-primary-800"
+                    className="rounded-full p-2 text-primary-500 transition hover:bg-primary-100"
                   >
                     {c.isPinned ? <PinOff size={16} /> : <Pin size={16} />}
                   </button>
                   <button
                     onClick={() => remove(c)}
                     title="Hapus ucapan"
-                    className="rounded-full p-2 text-red-500 transition hover:bg-red-50 dark:hover:bg-red-950/30"
+                    className="rounded-full p-2 text-red-500 transition hover:bg-red-50"
                   >
                     <Trash2 size={16} />
                   </button>
                 </div>
               </div>
-              <p className="mt-2 text-sm text-primary-700 dark:text-primary-200">{c.message}</p>
+              <p className="mt-2 text-sm text-primary-700">{c.message}</p>
               <p className="mt-2 text-xs text-primary-400">
                 {new Date(c.createdAt).toLocaleString('id-ID')}
               </p>

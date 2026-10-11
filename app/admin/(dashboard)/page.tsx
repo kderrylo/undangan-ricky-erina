@@ -25,15 +25,15 @@ function Card({
   sub?: string;
 }) {
   return (
-    <div className="rounded-2xl border border-primary-200 bg-white p-5 shadow-sm dark:border-primary-800 dark:bg-primary-900/30">
-      <div className="flex items-center gap-2 text-primary-500 dark:text-primary-300">
+    <div className="rounded-2xl border border-primary-200 bg-white p-5 shadow-sm">
+      <div className="flex items-center gap-2 text-primary-500">
         <Icon size={18} />
         <p className="text-xs font-medium uppercase tracking-wide">{label}</p>
       </div>
-      <p className="mt-2 font-serif text-3xl font-semibold text-primary-800 dark:text-primary-100">
+      <p className="mt-2 font-serif text-3xl font-semibold text-primary-800">
         {value}
       </p>
-      {sub && <p className="mt-1 text-xs text-primary-500 dark:text-primary-400">{sub}</p>}
+      {sub && <p className="mt-1 text-xs text-primary-500">{sub}</p>}
     </div>
   );
 }
@@ -66,10 +66,10 @@ export default function AdminOverviewPage() {
 
   return (
     <div>
-      <h1 className="font-serif text-2xl font-semibold text-primary-800 dark:text-primary-100">
+      <h1 className="font-serif text-2xl font-semibold text-primary-800">
         Ringkasan
       </h1>
-      <p className="mt-1 text-sm text-primary-500 dark:text-primary-400">
+      <p className="mt-1 text-sm text-primary-500">
         Pantau perkembangan tamu &amp; konfirmasi kehadiran undangan.
       </p>
 

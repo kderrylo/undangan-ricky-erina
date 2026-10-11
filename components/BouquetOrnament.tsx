@@ -103,7 +103,7 @@ export default function BouquetOrnament({ className = '', flip = false, style }:
       </g>
 
       {/* Bunga putih berkelopak lancip — motif utama sesuai referensi */}
-      <g className="text-white dark:text-primary-50">
+      <g className="text-white">
         <PointedBlossom x={10} y={4} scale={1.5} rotate={10} />
         <PointedBlossom x={44} y={66} scale={1.15} rotate={-15} />
         <PointedBlossom x={100} y={140} scale={1.3} rotate={25} />

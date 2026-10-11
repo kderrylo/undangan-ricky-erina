@@ -32,12 +32,12 @@ export default function Countdown({ target }: { target: string }) {
       {items.map((item) => (
         <div
           key={item.label}
-          className="flex flex-col items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-white/80 dark:bg-primary-900/60 shadow-md border border-primary-200/60"
+          className="flex flex-col items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-white/80 shadow-md border border-primary-200/60"
         >
-          <span className="text-xl sm:text-2xl font-serif font-semibold text-primary-700 dark:text-primary-100">
+          <span className="text-xl sm:text-2xl font-serif font-semibold text-primary-700">
             {String(item.value).padStart(2, '0')}
           </span>
-          <span className="text-[10px] sm:text-xs uppercase tracking-wide text-primary-500 dark:text-primary-200">
+          <span className="text-[10px] sm:text-xs uppercase tracking-wide text-primary-500">
             {item.label}
           </span>
         </div>
