@@ -51,7 +51,16 @@ export const config = {
     { year: '2026', img: '/images/story-4.webp', title: 'Hari Bahagia', desc: 'Dengan restu kedua orang tua, kami memutuskan untuk melangkah ke jenjang pernikahan.' },
   ],
   // 10 foto galeri, taruh file aslinya di public/asset/galery/1.png s.d. 10.png
-  gallery: Array.from({ length: 10 }, (_, i) => `/asset/galery/${i + 1}.webp`),
+  // gallery: Array.from({ length: 10 }, (_, i) => `/asset/galery/${i + 1}.webp`),
+  gallery: [
+    "/asset/galery/2.webp",
+    "/asset/galery/4.webp",
+    "/asset/galery/6.webp",
+    "/asset/galery/7.webp",
+    "/asset/galery/8.webp",
+    "/asset/galery/9.webp",
+    "/asset/galery/10.webp",
+  ],
   gift: {
     bank: [
       { bank: 'BCA', number: '3990439884', name: 'Paulus Ricky Kurnianda' },

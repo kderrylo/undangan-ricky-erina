@@ -13,9 +13,9 @@ type CardItemProps = {
 
 const CardItem = (item: CardItemProps) => {
   return (
-    <Reveal delay={item.delay} className="bg-white relative w-full min-h-[25rem] shadow-lg rounded-lg overflow-hidden group">
+    <Reveal delay={item.delay} className="bg-white relative w-full md:min-h-[10rem] shadow-lg rounded-lg overflow-hidden group">
       <div className="overflow-hidden">
-        <div className="w-full aspect-[9/16] relative hover:scale-105 transition-transform duration-500">
+        <div className="w-full aspect-[9/10] lg:aspect-[3/4] relative hover:scale-105 transition-transform duration-500">
           <Image
             alt="romo"
             src={item.img}
@@ -60,7 +60,7 @@ export default function LoveStory() {
           <DotDivider />
         </Reveal>
 
-        <div className='relative flex gap-4 w-4/5 max-w-screen-lg'>
+        <div className='relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:flex-row gap-4 w-full md:w-4/5 max-w-screen-lg'>
           {
             config.loveStory.map((item, i) => (
               <CardItem

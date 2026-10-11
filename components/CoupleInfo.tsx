@@ -52,32 +52,32 @@ export default function CoupleInfo() {
             alt={coupleAlt}
             fill
             sizes="100vw"
-            className="object-cover"
+            className="object-cover brightness-75"
             priority
             />
-          <div className="absolute inset-0 bg-gradient-to-b from-primary-900/60 via-primary-900/40 to-primary-950/75" />
+            <div className="absolute inset-0 bg-gradient-to-b from-primary-darkrose/60 via-primary-darkrose/40 to-primary-darkrose/75" />
           
           <Reveal>
           <div className="relative flex h-full flex-col items-center justify-center px-6 py-10 text-center text-white">
             <h3 className={"text-4xl " + fontSail}>{config.groom.fullName}</h3>
-            <p className="mt-2 max-w-[240px] text-xs leading-relaxed text-white/90">
+            <p className="mt-2 max-w-prose leading-relaxed text-white/90">
               {config.groom.parents}
             </p>
 
             <AmpDivider className="my-3 text-white/80" />
 
             <h3 className={"text-4xl " + fontSail}>{config.bride.fullName}</h3>
-            <p className="mt-2 max-w-[240px] text-xs leading-relaxed text-white/90">
+                <p className="mt-2 max-w-prose leading-relaxed text-white/90">
               {config.bride.parents}
             </p>
 
-            <p className="mt-6 font-script text-2xl">Sakramen Perkawinan</p>
-            <p className="mt-2 text-sm font-semibold">{event.location}</p>
-            <p className="mt-1 max-w-[260px] text-xs leading-relaxed text-white/80">{event.address}</p>
+            <p className={"mt-24 text-2xl " + fontSail}>Sakramen Perkawinan</p>
+            <p className="mt-2 font-semibold">{event.location}</p>
+            <p className="mt-1 max-w-prose text-sm leading-relaxed text-white">{event.address}</p>
 
             <EventMeta event={event} className="mt-4" />
 
-            <div className="mt-6 flex w-full max-w-[240px] flex-col gap-2">
+            <div className="mt-6 flex w-full max-w-prose flex-col gap-2">
               <a
                 href={event.mapsUrl}
                 target="_blank"
@@ -161,7 +161,7 @@ export default function CoupleInfo() {
         </Reveal>
       </div>
     </section>
-      <Image src="/images/flo-ornament-2.webp" width={1080} height={1} alt='verse-img' className='select-none absolute w-28 object-contain animate-float z-10 bottom-16 right-16' />
+      <Image src="/images/flo-ornament-2.webp" width={1080} height={1} alt='verse-img' className='hidden md:block select-none absolute w-28 object-contain animate-float z-10 bottom-16 right-16' />
     </div>
   );
 }

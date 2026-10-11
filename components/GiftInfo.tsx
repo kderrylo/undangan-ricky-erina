@@ -28,7 +28,7 @@ export default function GiftInfo() {
   return (
     <div id="gift" className="relative">
       <Reveal className="text-center lg:text-left">
-        <h2 className={"font-script text-4xl text-primary-rose " + fontSail}>
+        <h2 className={"font-script text-3xl md:text-4xl text-primary-rose " + fontSail}>
           Tanda Kasih
         </h2>
         <p className="mx-auto mt-3 max-w-md text-primary-rose lg:mx-0">
