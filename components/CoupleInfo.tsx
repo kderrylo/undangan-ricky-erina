@@ -44,9 +44,9 @@ export default function CoupleInfo() {
     <div className='relative'>
 
     <section id="couple" className="relative bg-white">
-      <div className="relative h-screen w-full overflow-hidden sm:grid sm:grid-cols-2 sm:min-h-[680px]">
+      <div className="relative min-h-screen w-full overflow-hidden sm:grid sm:grid-cols-2 sm:min-h-[680px]">
         {/* ===== Mobile: full screen foto dengan teks di atasnya ===== */}
-        <div className="relative min-h-screen w-full overflow-hidden sm:hidden">
+        <div className="relative min-h-screen w-full py-32 overflow-hidden sm:hidden">
           <Image
             src={config.couplePhoto}
             alt={coupleAlt}

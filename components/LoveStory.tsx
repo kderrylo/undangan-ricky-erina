@@ -52,12 +52,13 @@ export default function LoveStory() {
   return (
     <div className='relative'>
       <div className='w-full h-16 bg-flower'/>
-      <section id="story" className="relative bg-[#FCECED] px-6 py-20 w-full flex flex-col items-center">
+      <section id="story" className="relative bg-[#FCECED] px-6 py-32 md:py-20 w-full flex flex-col justify-center items-center min-h-screen">
         <Reveal className="relative text-center mb-8">
           <h2 className={"font-serif mb-4 text-5xl font-semibold text-primary-rose " + fontSail} >
             Love Story
           </h2>
           <DotDivider />
+          <p className='block lg:hidden mt-4 italic'>Ketuk untuk membaca</p>
         </Reveal>
 
         <div className='relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:flex-row gap-4 w-full md:w-4/5 max-w-screen-lg'>

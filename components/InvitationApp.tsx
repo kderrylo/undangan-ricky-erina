@@ -62,16 +62,26 @@ export default function InvitationApp() {
         <>
           <MusicToggle autoPlay />
           <Navbar />
-          <main className='relative'>
+          <main className='relative h-screen overflow-y-scroll scroll-smooth snap-y snap-mandatory'>
             {/* <Hero /> */}
-            <CoupleInfo />
+            <div className='min-h-screen snap-start'>
+              <CoupleInfo />
+            </div>
             {/* <EventDetail /> */}
-            <BibleVerse />
-            <LoveStory />
-            <Guestbook initialName={guestName} guestSlug={guestSlug} />
-            <Gallery />
+            <div className='min-h-screen snap-start'>
+              <BibleVerse />
+            </div>
+            <div className='min-h-screen snap-start'>
+              <LoveStory />
+            </div>
+            <div className='min-h-screen snap-start'>
+              <Guestbook initialName={guestName} guestSlug={guestSlug} />
+            </div>
+            <div className='min-h-screen snap-start'>
+              <Gallery />
+              <Footer />
+            </div>
           </main>
-          <Footer />
         </>
       )}
     </>

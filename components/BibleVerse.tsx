@@ -6,7 +6,7 @@ import Image from 'next/image';
 export default function BibleVerse() {
   return (
     <div className='relative'>
-      <section id="firman" className="relative min-h-screen w-full bg-white flex flex-col-reverse md:flex-row justify-end items-center px-4 py-16 md:px-32 gap-16">
+      <section id="firman" className="relative min-h-screen w-full bg-white flex flex-col-reverse md:flex-row justify-end items-center px-4 py-32 md:px-32 md:py-16 gap-16">
 
         <Reveal className='text-center md:text-right'>
           <p className={"text-3xl md:text-5xl text-primary-rose mb-8 md:mb-16 " + fontSail}>Firman Tuhan</p>
