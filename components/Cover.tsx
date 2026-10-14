@@ -89,54 +89,78 @@ type CoverType = {
 }
 
 export const Cover2 = (props: CoverType) => {
-  const { guestName, isOpen, onOpen } = props
+  const { guestName, isOpen, onOpen } = props;
+  
   return (
-    <>
-      <AnimatePresence>
-    {
-      !isOpen &&
-      (
-            <div
-              className='min-h-screen w-full bg-flower bg-center bg-cover'
+    <AnimatePresence>
+      {!isOpen && (
+        <motion.div
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, transition: { duration: 0.8, ease: 'easeInOut' } }}
+          className="fixed inset-0 z-50 h-[100dvh] w-full overflow-hidden bg-flower bg-cover bg-center"
+        >
+          {/* Container utama: menggunakan justify-between atau gap terukur agar tidak pernah terpotong */}
+          <div className="mx-auto flex h-full w-full max-w-screen-md flex-col items-center justify-between px-6 py-10 sm:py-12 md:justify-center md:gap-12">
+            
+            {/* 1. Logo Atas */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="relative aspect-square w-20 shrink-0 sm:w-24 md:w-28"
             >
-              <div className='h-screen w-full flex flex-col justify-center items-center px-8'>
-                <div className='relative w-24 md:w-32 aspect-square'>
-                  <Image src="/images/Logo_1_500x500.svg" alt='' fill className='relative' />
-                </div>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6 }}
-                  className="my-36 w-3/5 rounded-2xl min-w-fit md:min-w-96 max-w-screen-md bg-white/40 p-4 md:p-8 shadow-lg backdrop-blur flex flex-col items-center gap-4"
-                >
-                  <p className="text-primary-rose text-center font-bold text-sm md:text-base tracking-widest">Kepada Yth. Bapak/Ibu/Saudara/i</p>
-                  <p className={"text-3xl md:text-6xl font-semibold text-center line-clamp-2 text-primary-rose " + fontSail}>
-                    {guestName || 'Tamu Undangan'}
-                  </p>
-                  <p className="text-primary-rose font-bold text-sm md:text-base tracking-widest">di Tempat</p>
-                  <button
-                    onClick={onOpen}
-                    className="inline-flex items-center gap-2 rounded-full bg-primary-rose px-16 py-3 text-sm font-medium text-white shadow-lg transition hover:bg-primary-darkrose active:scale-95"
-                  >
-                    <Mail size={18} />
-                    Buka Undangan
-                  </button>
-                </motion.div>
+              <Image
+                src="/images/Logo_1_500x500.svg"
+                alt="Logo Pernikahan"
+                fill
+                priority
+                className="object-contain"
+              />
+            </motion.div>
 
-                <motion.h1
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.7 }}
-                  className={"text-3xl md:text-5xl text-center text-primary-rose " + fontSail}
-                >
-                  {config.groom.name} &amp; {config.bride.name}
-                </motion.h1>
+            {/* 2. Card Tujuan (Centered) */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="flex w-full max-w-md flex-col items-center gap-3 rounded-2xl bg-white/40 p-6 shadow-lg backdrop-blur-md sm:gap-4 sm:p-8"
+            >
+              <p className="text-center text-xs font-bold tracking-widest text-primary-rose sm:text-sm md:text-base">
+                Kepada Yth. Bapak/Ibu/Saudara/i
+              </p>
+              
+              <p
+                className={`line-clamp-2 py-1 text-center text-3xl font-semibold text-primary-rose sm:text-4xl md:text-5xl ${fontSail}`}
+              >
+                {guestName || 'Tamu Undangan'}
+              </p>
+              
+              <p className="text-xs font-bold tracking-widest text-primary-rose sm:text-sm md:text-base">
+                di Tempat
+              </p>
+              
+              <button
+                onClick={onOpen}
+                className="mt-2 inline-flex w-full max-w-[240px] items-center justify-center gap-2 rounded-full bg-primary-rose px-8 py-3 text-sm font-medium text-white shadow-lg transition hover:bg-primary-darkrose active:scale-95"
+              >
+                <Mail size={18} />
+                Buka Undangan
+              </button>
+            </motion.div>
 
-              </div>
-            </div>
-      )
-    }
+            {/* 3. Nama Pengantin Bawah */}
+            <motion.h1
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.7 }}
+              className={`shrink-0 text-center text-3xl text-primary-rose sm:text-4xl md:text-5xl ${fontSail}`}
+            >
+              {config.groom.name} &amp; {config.bride.name}
+            </motion.h1>
+
+          </div>
+        </motion.div>
+      )}
     </AnimatePresence>
-    </>
-  )
-}
+  );
+};
