@@ -5,7 +5,7 @@ import { Home, Users, CalendarDays, BookHeart, MessageSquareHeart } from 'lucide
 const links = [
   { href: '#home', label: 'Home', icon: Home },
   { href: '#couple', label: 'Mempelai', icon: Users },
-  { href: '#event', label: 'Acara', icon: CalendarDays },
+  // { href: '#event', label: 'Acara', icon: CalendarDays },
   { href: '#story', label: 'Kisah', icon: BookHeart },
   { href: '#rsvp', label: 'RSVP', icon: MessageSquareHeart },
 ];

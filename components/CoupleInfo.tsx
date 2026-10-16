@@ -14,16 +14,16 @@ function googleCalendarUrl(event: EventConfig) {
 function AmpDivider({ className = '' }: { className?: string }) {
   return (
     <div className={`flex items-center justify-center gap-3 ${className}`}>
-      <span className="h-px w-10 bg-current opacity-40 sm:w-16" />
-      <span className={`text-2xl leading-none sm:text-3xl ${fontSail}`}>&amp;</span>
-      <span className="h-px w-10 bg-current opacity-40 sm:w-16" />
+      <span className="h-px w-10 bg-current opacity-40 md:w-16" />
+      <span className={`text-2xl leading-none md:text-3xl ${fontSail}`}>&amp;</span>
+      <span className="h-px w-10 bg-current opacity-40 md:w-16" />
     </div>
   );
 }
 
 function EventMeta({ event, className = '' }: { event: EventConfig; className?: string }) {
   return (
-    <div className={`flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs sm:gap-x-5 sm:text-sm ${className}`}>
+    <div className={`flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs md:gap-x-5 md:text-sm ${className}`}>
       <span className="flex items-center gap-1.5">
         <Calendar size={15} />
         {event.date}
@@ -41,12 +41,13 @@ export default function CoupleInfo() {
   const coupleAlt = `${config.groom.fullName} & ${config.bride.fullName}`;
 
   return (
-    <div className="relative h-[100dvh] w-full overflow-hidden">
-      <section id="couple" className="relative h-full w-full bg-white">
-        <div className="relative h-full w-full overflow-hidden sm:grid sm:grid-cols-2">
+    <div className="relative min-h-[100dvh] w-full overflow-hidden lg:h-[100dvh]">
+      <section id="couple" className="relative h-full min-h-[100dvh] w-full bg-white">
+        {/* Gunakan lg:grid-cols-2 agar HP landscape tidak dianggap Desktop */}
+        <div className="relative h-full min-h-[100dvh] w-full overflow-hidden lg:grid lg:grid-cols-2">
           
-          {/* ===== Mobile: Fit 1 Layar Penuh (100dvh) Tanpa Scroll ===== */}
-          <div className="relative flex h-full w-full flex-col justify-between overflow-hidden px-5 pt-12 pb-24 text-center text-white sm:hidden">
+          {/* ===== Mobile & Tablet Portrait: Fit 1 Layar Penuh (100dvh) ===== */}
+          <div className="relative flex min-h-[100dvh] w-full flex-col justify-between overflow-hidden px-5 pt-10 pb-24 text-center text-white lg:hidden">
             <Image
               src={config.couplePhoto}
               alt={coupleAlt}
@@ -55,34 +56,31 @@ export default function CoupleInfo() {
               className="object-cover brightness-75"
               priority
             />
-            <div className="
-              absolute inset-0 bg-gradient-to-b 
-              from-primary-darkrose/65 via-primary-darkrose/45 to-primary-darkrose/80
-            " />
+            <div className="absolute inset-0 bg-gradient-to-b from-primary-darkrose/65 via-primary-darkrose/45 to-primary-darkrose/80" />
 
-            <Reveal className="relative z-10 flex h-full w-full flex-col items-center justify-evenly">
+            <Reveal className="relative z-10 my-auto flex w-full flex-col items-center justify-evenly gap-4">
               {/* Bagian Mempelai */}
               <div className="flex flex-col items-center">
-                <h3 className={`text-3xl leading-tight ${fontSail}`}>
+                <h3 className={`text-3xl leading-tight sm:text-4xl ${fontSail}`}>
                   {config.groom.fullName}
                 </h3>
-                <p className="mt-1 max-w-xs text-xs leading-snug text-white/90">
+                <p className="mt-1 max-w-xs text-xs leading-snug text-white/90 sm:text-sm">
                   {config.groom.parents}
                 </p>
 
                 <AmpDivider className="my-2 text-white/80" />
 
-                <h3 className={`text-3xl leading-tight ${fontSail}`}>
+                <h3 className={`text-3xl leading-tight sm:text-4xl ${fontSail}`}>
                   {config.bride.fullName}
                 </h3>
-                <p className="mt-1 max-w-xs text-xs leading-snug text-white/90">
+                <p className="mt-1 max-w-xs text-xs leading-snug text-white/90 sm:text-sm">
                   {config.bride.parents}
                 </p>
               </div>
 
               {/* Bagian Acara & Lokasi */}
               <div className="flex flex-col items-center">
-                <p className={`text-2xl ${fontSail}`}>Sakramen Perkawinan</p>
+                <p className={`text-2xl sm:text-3xl ${fontSail}`}>Sakramen Perkawinan</p>
                 <p className="mt-1 text-sm font-semibold">{event.location}</p>
                 <p className="mt-0.5 max-w-xs text-xs leading-snug text-white/90">
                   {event.address}
@@ -112,46 +110,44 @@ export default function CoupleInfo() {
             </Reveal>
           </div>
 
-          {/* ===== Desktop: Foto di Kiri, Info Acara di Kanan ===== */}
-          <div className="relative hidden h-full bg-primary-50 sm:block">
+          {/* ===== Desktop (>= 1024px): Foto di Kiri, Info Acara di Kanan ===== */}
+          <div className="relative hidden h-full min-h-[100dvh] bg-primary-50 lg:block">
             <Image
               src={config.couplePhoto}
               alt={coupleAlt}
               fill
-              sizes="(min-width: 640px) 50vw, 100vw"
+              sizes="50vw"
               className="object-cover"
             />
           </div>
 
-          <div className="relative hidden h-full flex-col items-center justify-center bg-white px-10 py-10 text-center sm:flex">
-            {/* Ornamen Bunga: ditaruh di z-0 (di belakang konten & button) */}
+          <div className="relative hidden h-full min-h-[100dvh] flex-col items-center justify-center bg-white px-8 py-8 text-center lg:flex">
             <Image
               src="/images/flo-ornament-2.webp"
               width={1080}
               height={1}
               alt="verse-img"
-              className="pointer-events-none absolute right-12 bottom-12 z-0 hidden w-28 select-none object-contain animate-float md:block"
+              className="pointer-events-none absolute right-12 bottom-12 z-0 hidden w-28 select-none object-contain animate-float lg:block"
             />
 
-            {/* Konten & Button: ditaruh di z-10 agar selalu di atas bunga */}
             <Reveal className="relative z-10 flex flex-col items-center justify-center">
-              <h3 className={`text-4xl lg:text-5xl ${fontSail}`}>
+              <h3 className={`text-4xl xl:text-5xl ${fontSail}`}>
                 {config.groom.fullName}
               </h3>
-              <p className="mt-2 max-w-prose text-sm lg:text-base">
+              <p className="mt-2 max-w-prose text-sm">
                 {config.groom.parents}
               </p>
 
-              <AmpDivider className="my-4" />
+              <AmpDivider className="my-3" />
 
-              <h3 className={`text-4xl lg:text-5xl ${fontSail}`}>
+              <h3 className={`text-4xl xl:text-5xl ${fontSail}`}>
                 {config.bride.fullName}
               </h3>
-              <p className="mt-2 max-w-prose text-sm lg:text-base">
+              <p className="mt-2 max-w-prose text-sm">
                 {config.bride.parents}
               </p>
 
-              <p className={`mt-10 text-3xl ${fontSail}`}>
+              <p className={`mt-8 text-3xl ${fontSail}`}>
                 Sakramen Perkawinan
               </p>
               <p className="mt-2 font-semibold">
@@ -163,7 +159,6 @@ export default function CoupleInfo() {
 
               <EventMeta event={event} className="mt-4" />
 
-              {/* Container button dengan z-20 dan bg-white pada tombol kedua agar bunga tidak tembus */}
               <div className="relative z-20 mt-6 flex flex-wrap items-center justify-center gap-3">
                 <a
                   href={event.mapsUrl}

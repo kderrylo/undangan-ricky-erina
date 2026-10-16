@@ -57,6 +57,31 @@ export default function InvitationApp() {
   return (
     <>
       <Cover2 guestName={guestName} isOpen={isOpen} onOpen={handleOpen} />
+      
+      <div className="fixed inset-0 z-[100] hidden flex-col items-center justify-center bg-primary-rose px-6 text-center text-white [@media(max-height:500px)_and_(orientation:landscape)]:flex">
+        <div className="mb-3 flex h-14 w-14 animate-bounce items-center justify-center rounded-full bg-white/15 backdrop-blur-xs">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+            <path d="M12 18h.01" />
+          </svg>
+        </div>
+        <p className="font-serif text-lg font-semibold tracking-wide">
+          Mohon Putar Kembali Layar Anda
+        </p>
+        <p className="mt-1 max-w-xs text-xs text-white/80">
+          Untuk pengalaman visual terbaik, silakan buka undangan ini dalam mode potret (vertikal).
+        </p>
+      </div>
 
       {isOpen && (
         <>
