@@ -18,7 +18,7 @@ export default function Footer() {
         {config.groom.name} &amp; {config.bride.name}
       </p>
       <p className="mt-2 text-sm text-primary-200">{config.hashtag}</p>
-      <p className="mt-4 text-[11px] tracking-wide text-primary-400">Powered by WeddyKu & Zellution</p>
+      <p className="mt-4 text-[11px] mb-10 tracking-wide text-primary-400">Powered by RSVPku & Zellution</p>
     </footer>
   );
 }
