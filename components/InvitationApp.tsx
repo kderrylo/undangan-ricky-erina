@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ReactNode } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { Cover2 } from './Cover';
 import Hero from './Hero';
-import CoupleInfo from './CoupleInfo';
-import EventDetail from './EventDetail';
 import BibleVerse from './BibleVerse';
+import BrideAndGroom from './BrideAndGroom';
+import EventDetail from './EventDetail';
 import LoveStory from './LoveStory';
 import Gallery from './Gallery';
 import Guestbook from './Guestbook';
@@ -16,12 +17,29 @@ import Footer from './Footer';
 import { fireConfetti } from './confetti';
 import { prettifySlug } from '@/lib/slug';
 
+function SectionTransition({
+  children,
+  className = '',
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.12 }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 export default function InvitationApp() {
   const searchParams = useSearchParams();
   const guestSlug = searchParams.get('to') ?? '';
-  // Tampilan awal: kalau slug ada, tebak nama dari slug dulu ("jensen-sitompul"
-  // -> "Jensen Sitompul") supaya tidak sempat kelihatan strip mentah, lalu
-  // begitu nama asli dari database ketemu, akan ditimpa otomatis di bawah.
   const [guestName, setGuestName] = useState(guestSlug ? prettifySlug(guestSlug) : '');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,9 +58,7 @@ export default function InvitationApp() {
           setGuestName(json.data.name);
         }
       })
-      .catch(() => {
-        // Diamkan saja — nama hasil prettifySlug() di atas tetap dipakai sebagai fallback.
-      });
+      .catch(() => {});
 
     return () => {
       cancelled = true;
@@ -57,7 +73,8 @@ export default function InvitationApp() {
   return (
     <>
       <Cover2 guestName={guestName} isOpen={isOpen} onOpen={handleOpen} />
-      
+
+      {/* Landscape Blocker khusus Mobile */}
       <div className="fixed inset-0 z-[100] hidden flex-col items-center justify-center bg-primary-rose px-6 text-center text-white [@media(max-height:500px)_and_(orientation:landscape)]:flex">
         <div className="mb-3 flex h-14 w-14 animate-bounce items-center justify-center rounded-full bg-white/15 backdrop-blur-xs">
           <svg
@@ -87,24 +104,34 @@ export default function InvitationApp() {
         <>
           <MusicToggle autoPlay />
           <Navbar />
-          <main className="relative h-[100dvh] overflow-y-scroll scroll-smooth snap-y snap-mandatory">
-            <div className="h-[100dvh] ">
-              <CoupleInfo />
-            </div>
-            {/* <EventDetail /> */}
-            <div className='min-h-[100dvh] '>
+          {/* Gunakan overflow-x-clip (bukan overflow-x-hidden atau overflow-y-scroll) agar hanya ada 1 scrollbar utama milik browser */}
+          <main className="relative w-full overflow-x-clip">
+            <Hero guestName={guestName} />
+
+            <SectionTransition>
               <BibleVerse />
-            </div>
-            <div className='min-h-[100dvh]'>
+            </SectionTransition>
+
+            <SectionTransition>
+              <BrideAndGroom />
+            </SectionTransition>
+
+            <SectionTransition>
+              <EventDetail />
+            </SectionTransition>
+
+            <SectionTransition>
               <LoveStory />
-            </div>
-            <div className='min-h-[100dvh] '>
+            </SectionTransition>
+
+            <SectionTransition>
               <Guestbook initialName={guestName} guestSlug={guestSlug} />
-            </div>
-            <div className='min-h-[100dvh] '>
+            </SectionTransition>
+
+            <SectionTransition>
               <Gallery />
               <Footer />
-            </div>
+            </SectionTransition>
           </main>
         </>
       )}
