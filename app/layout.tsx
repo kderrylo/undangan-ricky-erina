@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Undangan Pernikahan ${config.groom.name} & ${config.bride.name}`,
     description: `Dengan penuh kebahagiaan, kami mengundang Anda untuk hadir di pernikahan ${config.groom.name} & ${config.bride.name}.`,
-    images: ['/images/cover.jpg'],
+    images: ['/asset/galery/4.webp'],
   },
 };
 
