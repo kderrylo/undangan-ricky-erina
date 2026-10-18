@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Cover2 } from './Cover';
 import Hero from './Hero';
-import BibleVerse from './BibleVerse';
+import { BibleVerse1, BibleVerse2 } from './BibleVerse';
 import BrideAndGroom from './BrideAndGroom';
 import EventDetail from './EventDetail';
 import LoveStory from './LoveStory';
@@ -58,7 +58,7 @@ export default function InvitationApp() {
           setGuestName(json.data.name);
         }
       })
-      .catch(() => {});
+      .catch(() => { });
 
     return () => {
       cancelled = true;
@@ -106,30 +106,42 @@ export default function InvitationApp() {
           <Navbar />
           {/* Gunakan overflow-x-clip (bukan overflow-x-hidden atau overflow-y-scroll) agar hanya ada 1 scrollbar utama milik browser */}
           <main className="relative w-full overflow-x-clip">
+            {/* 1. Hero */}
             <Hero guestName={guestName} />
 
+            {/* 2. Ayat Pembuka (Ayat ke-1) */}
             <SectionTransition>
-              <BibleVerse />
+              <BibleVerse1 />
             </SectionTransition>
 
+            {/* 3. Bride & Groom */}
             <SectionTransition>
               <BrideAndGroom />
             </SectionTransition>
 
+            {/* 4. Event Detail (Sakramen Perkawinan) */}
             <SectionTransition>
               <EventDetail />
             </SectionTransition>
 
+            {/* 5. Love Story */}
             <SectionTransition>
               <LoveStory />
             </SectionTransition>
 
+            {/* 6. Guestbook / RSVP */}
             <SectionTransition>
               <Guestbook initialName={guestName} guestSlug={guestSlug} />
             </SectionTransition>
 
             <SectionTransition>
+              <BibleVerse2 />
+            </SectionTransition>
+
+            {/* 7. Gallery, Ayat Penutup (Ayat ke-2), & Footer */}
+            <SectionTransition>
               <Gallery />
+              
               <Footer />
             </SectionTransition>
           </main>
