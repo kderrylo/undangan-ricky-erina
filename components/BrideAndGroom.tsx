@@ -10,7 +10,7 @@ import { fontSail } from './FontSail';
 
 // Sesuaikan path ini dengan lokasi file 6.webp & 8.webp di dalam folder public/ kamu.
 // Jika config.gallery berisi daftar foto, kamu juga bisa memakai config.gallery[5] & config.gallery[7]
-const BRIDE_PHOTO = '/asset/galery/6.jpg    ';
+const BRIDE_PHOTO = '/asset/galery/6.jpg';
 const GROOM_PHOTO = '/asset/galery/8.jpg';
 
 function DotDivider() {
