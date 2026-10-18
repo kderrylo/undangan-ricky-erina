@@ -69,7 +69,7 @@ const CardItem = ({ title, year, desc, img, index }: CardItemProps) => {
         }}
         className="absolute inset-x-0 bottom-0 z-20 p-5 lg:translate-y-3 lg:opacity-0 lg:transition-all lg:duration-500 lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
       >
-        <p className="text-xs leading-relaxed text-white/95 sm:text-sm">
+        <p className="text-sm leading-relaxed text-white/95 sm:text-md">
           {desc}
         </p>
       </motion.div>
