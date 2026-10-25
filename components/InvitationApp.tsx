@@ -2,20 +2,22 @@
 
 import { useEffect, useState, ReactNode } from 'react';
 import { useSearchParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { Cover2 } from './Cover';
 import Hero from './Hero';
 import { BibleVerse1, BibleVerse2 } from './BibleVerse';
 import BrideAndGroom from './BrideAndGroom';
 import EventDetail from './EventDetail';
-import LoveStory from './LoveStory';
-import Gallery from './Gallery';
-import Guestbook from './Guestbook';
 import Navbar from './Navbar';
 import MusicToggle from './MusicToggle';
-import Footer from './Footer';
-import { fireConfetti } from './confetti';
 import { prettifySlug } from '@/lib/slug';
+
+// Lazy-load section bagian bawah halaman agar loading awal Cover & Hero jauh lebih instan
+const LoveStory = dynamic(() => import('./LoveStory'));
+const Guestbook = dynamic(() => import('./Guestbook'));
+const Gallery = dynamic(() => import('./Gallery'));
+const Footer = dynamic(() => import('./Footer'));
 
 function SectionTransition({
   children,
@@ -58,15 +60,17 @@ export default function InvitationApp() {
           setGuestName(json.data.name);
         }
       })
-      .catch(() => { });
+      .catch(() => {});
 
     return () => {
       cancelled = true;
     };
   }, [guestSlug]);
 
-  const handleOpen = () => {
+  const handleOpen = async () => {
     setIsOpen(true);
+    // Library canvas-confetti hanya di-download saat tombol diklik
+    const { fireConfetti } = await import('./confetti');
     fireConfetti();
   };
 
@@ -104,44 +108,35 @@ export default function InvitationApp() {
         <>
           <MusicToggle autoPlay />
           <Navbar />
-          {/* Gunakan overflow-x-clip (bukan overflow-x-hidden atau overflow-y-scroll) agar hanya ada 1 scrollbar utama milik browser */}
           <main className="relative w-full overflow-x-clip">
-            {/* 1. Hero */}
             <Hero guestName={guestName} />
 
-            {/* 2. Ayat Pembuka (Ayat ke-1) */}
             <SectionTransition>
               <BibleVerse1 />
             </SectionTransition>
 
-            {/* 3. Bride & Groom */}
             <SectionTransition>
               <BrideAndGroom />
             </SectionTransition>
 
-            {/* 4. Event Detail (Sakramen Perkawinan) */}
             <SectionTransition>
               <EventDetail />
             </SectionTransition>
 
-            {/* 5. Love Story */}
             <SectionTransition>
               <LoveStory />
             </SectionTransition>
 
-            {/* 6. Guestbook / RSVP */}
             <SectionTransition>
               <Guestbook initialName={guestName} guestSlug={guestSlug} />
             </SectionTransition>
 
             <SectionTransition>
-              <BibleVerse2 />
+              <Gallery />
             </SectionTransition>
 
-            {/* 7. Gallery, Ayat Penutup (Ayat ke-2), & Footer */}
             <SectionTransition>
-              <Gallery />
-              
+              <BibleVerse2 />
               <Footer />
             </SectionTransition>
           </main>

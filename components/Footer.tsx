@@ -4,7 +4,7 @@ import { fontSail } from './FontSail';
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-primary-rose pb-14 text-center text-white">
+    <footer className="relative overflow-hidden bg-primary-rose pb-14 pt-3 text-center text-white">
       <div className="relative mx-auto h-28 w-[88px] opacity-80">
         <Image
           src="/images/monogram-pe.png"
