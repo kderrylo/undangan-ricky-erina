@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Users, CheckCircle2, XCircle, Send, Loader2 } from 'lucide-react';
+import { Users, XCircle, Loader2 } from 'lucide-react';
 
 interface Stats {
   rsvp: {
@@ -25,15 +25,21 @@ function Card({
   sub?: string;
 }) {
   return (
-    <div className="rounded-2xl border border-primary-200 bg-white p-5 shadow-sm">
-      <div className="flex items-center gap-2 text-primary-500">
-        <Icon size={18} />
-        <p className="text-xs font-medium uppercase tracking-wide">{label}</p>
+    <div className="flex flex-col justify-between rounded-2xl border border-primary-200 bg-white p-5 shadow-sm transition hover:shadow-md sm:p-6">
+      <div className="flex items-center gap-2.5 text-primary-500">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
+          <Icon size={18} />
+        </div>
+        <p className="text-xs font-semibold uppercase tracking-wider text-primary-600">
+          {label}
+        </p>
       </div>
-      <p className="mt-2 font-serif text-3xl font-semibold text-primary-800">
-        {value}
-      </p>
-      {sub && <p className="mt-1 text-xs text-primary-500">{sub}</p>}
+      <div className="mt-4">
+        <p className="font-serif text-3xl font-bold text-primary-800 sm:text-4xl">
+          {value}
+        </p>
+        {sub && <p className="mt-1.5 text-xs text-primary-500 sm:text-sm">{sub}</p>}
+      </div>
     </div>
   );
 }
@@ -53,32 +59,45 @@ export default function AdminOverviewPage() {
   }, []);
 
   if (error) {
-    return <p className="text-sm text-red-600">{error}</p>;
+    return (
+      <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-600">
+        {error}
+      </div>
+    );
   }
 
   if (!stats) {
     return (
-      <div className="flex items-center gap-2 text-primary-500">
-        <Loader2 size={16} className="animate-spin" /> Memuat data...
+      <div className="flex h-40 items-center justify-center gap-2 text-primary-500">
+        <Loader2 size={18} className="animate-spin" /> Memuat data...
       </div>
     );
   }
 
   return (
-    <div>
-      <h1 className="font-serif text-2xl font-semibold text-primary-800">
-        Ringkasan
-      </h1>
-      <p className="mt-1 text-sm text-primary-500">
-        Pantau perkembangan tamu &amp; konfirmasi kehadiran undangan.
-      </p>
+    <div className="space-y-6">
+      <div>
+        <h1 className="font-serif text-2xl font-semibold text-primary-800 sm:text-3xl">
+          Ringkasan
+        </h1>
+        <p className="mt-1 text-xs text-primary-500 sm:text-sm">
+          Pantau perkembangan tamu &amp; konfirmasi kehadiran undangan.
+        </p>
+      </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
-        <Card icon={Users} label="Total Tamu Terdaftar" value={stats.guests.total} sub={`${stats.guests.totalInvited} orang diundang`} />
-        <Card icon={Send} label="Link Terkirim" value={stats.guests.totalSent} />
-        <Card icon={CheckCircle2} label="Konfirmasi Hadir" value={stats.rsvp.hadir.people} sub={`${stats.rsvp.hadir.entries} entri ucapan`} />
-        <Card icon={XCircle} label="Tidak Hadir" value={stats.rsvp.tidak_hadir.people} sub={`${stats.rsvp.tidak_hadir.entries} entri ucapan`} />
-        <Card icon={Users} label="Total Ucapan Masuk" value={stats.rsvp.totalEntries} sub={`${stats.rsvp.totalPeople} total orang`} />
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <Card
+          icon={Users}
+          label="Total Tamu Terdaftar"
+          value={stats.rsvp.hadir.people}
+          sub={`${stats.rsvp.totalEntries} orang yang masukan ucapan`}
+        />
+        <Card
+          icon={XCircle}
+          label="Tidak Hadir"
+          value={stats.rsvp.tidak_hadir.entries}
+          sub={`${stats.rsvp.tidak_hadir.entries} entri konfirmasi tidak hadir`}
+        />
       </div>
     </div>
   );
