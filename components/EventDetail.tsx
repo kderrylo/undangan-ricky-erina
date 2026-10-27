@@ -9,11 +9,20 @@ import BouquetOrnament from './BouquetOrnament';
 import ChurchOrnament from './ChurchOrnament';
 import { fontSail } from './FontSail';
 
+function getEventDatesParam(dateStr?: string, timeStr?: string) {
+  // Default: 26 Desember 2026 pukul 12:00 s/d 14:00 WIB (Asia/Jakarta = UTC+7)
+  // Format Google Calendar: YYYYMMDDTHHmmSSZ
+  return '20261226T050000Z/20261226T070000Z';
+}
+
 function googleCalendarUrl(event: EventConfig) {
-  const title = encodeURIComponent(`${event.name} - ${config.groom.name} & ${config.bride.name}`);
-  const details = encodeURIComponent(`${event.location}, ${event.address}`);
-  const location = encodeURIComponent(event.address);
-  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}`;
+  const title = encodeURIComponent(`${event.name || 'Misa Pemberkatan'} - ${config.groom.name} & ${config.bride.name}`);
+  const details = encodeURIComponent(`${event.location}\n${event.address}`);
+  const location = encodeURIComponent(`${event.location}, ${event.address}`);
+  const dates = getEventDatesParam(event.date, event.time);
+  const timezone = encodeURIComponent('Asia/Jakarta');
+
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}&ctz=${timezone}`;
 }
 
 function DotDivider() {
