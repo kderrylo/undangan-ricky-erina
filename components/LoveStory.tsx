@@ -90,7 +90,7 @@ function DotDivider() {
 export default function LoveStory() {
   return (
     <div className="relative">
-      <div className="h-16 w-full bg-flower" />
+      {/* <div className="h-16 w-full bg-flower" /> */}
       <section
         id="story"
         className="relative flex min-h-screen w-full flex-col items-center justify-center bg-[#FCECED] px-6 py-20"
@@ -115,7 +115,7 @@ export default function LoveStory() {
           ))}
         </div>
       </section>
-      <div className="h-16 w-full bg-flower bg-bottom" />
+      {/* <div className="h-16 w-full bg-flower bg-bottom" /> */}
     </div>
   );
 }

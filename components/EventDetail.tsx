@@ -35,16 +35,16 @@ export default function EventDetail() {
       className="relative flex min-h-[100dvh] w-full flex-col items-center justify-center overflow-hidden bg-[#FCECED] px-6 py-20"
     >
       {/* Ornamen Bunga Sudut (Lilac & Primary Rose) */}
-      <FloralOrnament className="pointer-events-none absolute -top-8 -left-8 h-40 w-40 text-primary-300 opacity-55 sm:h-56 sm:w-56" />
+      <FloralOrnament className="pointer-events-none absolute -top-1 -left-8 h-40 w-40 text-primary-300 opacity-55 sm:h-56 sm:w-56" />
       <FloralOrnament
         flip
-        className="pointer-events-none absolute -right-8 -bottom-8 h-40 w-40 text-lilac-300 opacity-60 sm:h-56 sm:w-56"
+        className="pointer-events-none absolute -right-8 -bottom-1 h-40 w-40 text-lilac-300 opacity-60 sm:h-56 sm:w-56"
       />
       <BouquetOrnament
         flip
-        className="pointer-events-none absolute -top-10 -right-10 h-44 w-44 text-lilac-300 opacity-45 sm:h-60 sm:w-60"
+        className="pointer-events-none absolute -top-1 -right-10 h-44 w-44 text-lilac-300 opacity-45 sm:h-60 sm:w-60"
       />
-      <BouquetOrnament className="pointer-events-none absolute -bottom-10 -left-10 h-44 w-44 text-primary-300 opacity-45 sm:h-60 sm:w-60" />
+      <BouquetOrnament className="pointer-events-none absolute -bottom-1 -left-10 h-44 w-44 text-primary-300 opacity-45 sm:h-60 sm:w-60" />
 
       {/* Judul Section */}
       <Reveal className="relative z-10 text-center">
