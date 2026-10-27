@@ -2,24 +2,42 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { Instagram } from 'lucide-react';
 import { config } from '@/lib/data';
 import Reveal from './Reveal';
 import FloralOrnament from './FloralOrnament';
 import BouquetOrnament from './BouquetOrnament';
 import { fontSail } from './FontSail';
 
-// Sesuaikan path ini dengan lokasi file 6.webp & 8.webp di dalam folder public/ kamu.
-// Jika config.gallery berisi daftar foto, kamu juga bisa memakai config.gallery[5] & config.gallery[7]
 const BRIDE_PHOTO = '/asset/galery/6.jpg';
 const GROOM_PHOTO = '/asset/galery/8.jpg';
 
-function DotDivider() {
+const BRIDE_IG = {
+  username: '@gisela_erina',
+  url: 'https://www.instagram.com/gisela_erina/',
+};
+
+const GROOM_IG = {
+  username: '@paulusricky29',
+  url: 'https://www.instagram.com/paulusricky29/',
+};
+
+function InstagramBadge({ username, url }: { username: string; url: string }) {
   return (
-    <div className="flex items-center justify-center gap-3">
-      <span className="h-px w-14 bg-primary-rose/60" />
-      <span className="h-1.5 w-1.5 rounded-full bg-lilac-400" />
-      <span className="h-px w-14 bg-primary-rose/60" />
-    </div>
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Instagram ${username}`}
+      // Menggunakan justify-center dan padding optik (pl-3.5 pr-4) agar seimbang sempurna di tengah
+      className="group mx-auto mt-3.5 inline-flex items-center justify-center gap-1.5 rounded-full border border-lilac-200/90 bg-white/80 py-1.5 pr-4 pl-3.5 text-xs font-medium text-primary-rose shadow-2xs backdrop-blur-xs transition-all duration-300 hover:-translate-y-0.5 hover:border-primary-rose hover:bg-primary-rose hover:text-white hover:shadow-md active:scale-95"
+    >
+      <Instagram
+        size={14}
+        className="shrink-0 text-primary-rose transition-transform duration-300 group-hover:scale-110 group-hover:text-white"
+      />
+      <span className="leading-none">{username}</span>
+    </a>
   );
 }
 
@@ -27,10 +45,9 @@ export default function BrideAndGroom() {
   return (
     <section
       id="couple"
-      className="relative flex min-h-[100dvh] w-full flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-white via-[#FCECED]/70 to-lilac-50/60 px-6 pb-20 pt-5"
+      className="relative flex min-h-[100dvh] w-full flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-white via-[#FCECED]/70 to-lilac-50/60 px-6 pt-5 pb-20"
     >
       {/* Ornamen Bunga Latar (Lilac & Primary Rose) */}
-      {/* <FloralOrnament className="pointer-events-none absolute top-6 -left-6 h-36 w-36 text-lilac-300 opacity-50 sm:h-52 sm:w-52" /> */}
       <FloralOrnament
         flip
         className="pointer-events-none absolute -right-6 bottom-6 h-36 w-36 text-primary-300 opacity-50 sm:h-52 sm:w-52"
@@ -41,24 +58,10 @@ export default function BrideAndGroom() {
       />
       <BouquetOrnament className="pointer-events-none absolute bottom-1/2 -left-12 h-44 w-44 text-primary-200 opacity-40 sm:h-60 sm:w-60" />
 
-      {/* Header Section */}
-      {/* <Reveal className="relative z-10 mb-12 text-center">
-        <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary-rose/80 sm:text-sm">
-          The Happy Couple
-        </p>
-        <h2 className={`mt-2 mb-4 text-5xl text-primary-rose sm:text-6xl ${fontSail}`}>
-          Bride &amp; Groom
-        </h2>
-        <DotDivider />
-        <p className="mx-auto mt-4 max-w-md text-xs leading-relaxed text-primary-800/80 sm:text-sm">
-          Kami mohon do'a & restunya atas pernikahan kami
-        </p>
-      </Reveal> */}
-
       {/* Grid Mempelai: Bride & Groom */}
       <div className="relative z-10 mx-auto grid w-full max-w-4xl grid-cols-1 items-center gap-10 md:grid-cols-11 md:gap-6">
         
-        {/* Kartu Mempelai Wanita (Bride - 6.webp) */}
+        {/* Kartu Mempelai Wanita (Bride - Erina) */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -84,7 +87,7 @@ export default function BrideAndGroom() {
               width={120}
               height={120}
               alt=""
-              className="pointer-events-none absolute -right-5 -bottom-4 z-20 w-16 select-none object-contain animate-float "
+              className="pointer-events-none absolute -right-5 -bottom-4 z-20 w-16 select-none object-contain animate-float"
             />
           </div>
 
@@ -97,6 +100,9 @@ export default function BrideAndGroom() {
           <p className="mt-2 max-w-xs text-xs leading-relaxed text-primary-800/85 sm:text-sm">
             {config.bride.parents}
           </p>
+
+          {/* Instagram Badge Erina */}
+          <InstagramBadge username={BRIDE_IG.username} url={BRIDE_IG.url} />
         </motion.div>
 
         {/* Simbol "&" di Tengah */}
@@ -106,7 +112,7 @@ export default function BrideAndGroom() {
           </div>
         </Reveal>
 
-        {/* Kartu Mempelai Pria (Groom - 8.webp) */}
+        {/* Kartu Mempelai Pria (Groom - Paulus) */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -145,6 +151,9 @@ export default function BrideAndGroom() {
           <p className="mt-2 max-w-xs text-xs leading-relaxed text-primary-800/85 sm:text-sm">
             {config.groom.parents}
           </p>
+
+          {/* Instagram Badge Paulus */}
+          <InstagramBadge username={GROOM_IG.username} url={GROOM_IG.url} />
         </motion.div>
 
       </div>
