@@ -10,7 +10,7 @@ import BouquetOrnament from './BouquetOrnament';
 import { fontSail } from './FontSail';
 
 const BRIDE_PHOTO = '/asset/galery/6.jpg';
-const GROOM_PHOTO = '/asset/galery/8.jpg';
+const GROOM_PHOTO = '/asset/galery/8(2).jpg';
 
 const BRIDE_IG = {
   username: '@gisela_erina',
