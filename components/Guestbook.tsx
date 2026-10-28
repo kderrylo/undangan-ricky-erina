@@ -15,13 +15,46 @@ const ATTENDANCE_OPTIONS: { value: Attendance; label: string }[] = [
 
 const MESSAGE_MAX_LENGTH = 100;
 
-function timeAgo(dateStr: string) {
-  const diff = Date.now() - new Date(dateStr).getTime();
-  const minutes = Math.floor(diff / 60000);
-  if (minutes < 1) return 'Baru saja';
+function parseCommentDate(dateStr: string | undefined | null): number {
+  if (!dateStr) return Date.now();
+
+  const raw = String(dateStr).trim();
+  let timestamp = new Date(raw).getTime();
+
+  if (isNaN(timestamp)) {
+    timestamp = new Date(raw.replace(' ', 'T') + 'Z').getTime();
+  }
+
+  const now = Date.now();
+  const diffHours = (now - timestamp) / (1000 * 60 * 60);
+
+  // Deteksi otomatis bug Double-UTC dari MySQL DATETIME:
+  // Jika komentar disimpan sebagai angka UTC (new Date().toISOString().slice(0,19))
+  // ke kolom DATETIME MySQL di server WIB (+07:00), maka nilainya akan mundur tepat 7 jam.
+  // Kita kompensasi kembali +7 jam (25.200.000 ms).
+  if (diffHours >= 6.95) {
+    timestamp += 7 * 60 * 60 * 1000;
+  }
+
+  return timestamp;
+}
+
+function timeAgo(dateStr: string | undefined | null) {
+  if (!dateStr) return 'Baru saja';
+
+  const eventTime = parseCommentDate(dateStr);
+  const diff = Date.now() - eventTime;
+
+  // Toleransi jika jam device sedikit berbeda beberapa detik/menit
+  const seconds = Math.floor(diff / 1000);
+  if (seconds < 60) return 'Baru saja';
+
+  const minutes = Math.floor(seconds / 60);
   if (minutes < 60) return `${minutes} menit lalu`;
+
   const hours = Math.floor(minutes / 60);
   if (hours < 24) return `${hours} jam lalu`;
+
   const days = Math.floor(hours / 24);
   return `${days} hari lalu`;
 }
@@ -270,7 +303,7 @@ export default function Guestbook({
                   <p className="font-semibold leading-3 text-primary-rose">
                     {c.name}
                   </p>
-                  <span className="text-xs text-primary-rose/50">{timeAgo(c.createdAt)}</span>
+                  <span className="text-xs text-primary-rose/50">{timeAgo(c.createdAt || (c as any).created_at)}</span>
                 </div>
                 <p className="mt-1 text-sm font-medium text-primary-rose/50">
                   {ATTENDANCE_OPTIONS.find((o) => o.value === c.attendance)?.label}
