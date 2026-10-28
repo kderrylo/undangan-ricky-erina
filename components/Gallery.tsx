@@ -18,7 +18,7 @@ function DotDivider() {
   );
 }
 
-const AUTOPLAY_INTERVAL = 2500;
+const AUTOPLAY_INTERVAL = 3000;
 const SWIPE_THRESHOLD = 40;
 
 export default function Gallery() {
