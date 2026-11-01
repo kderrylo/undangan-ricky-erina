@@ -235,7 +235,7 @@ export default function Guestbook({
                       </span>
                       <button
                         type="button"
-                        onClick={() => setAttendeeCount((v) => Math.min(10, v + 1))}
+                        onClick={() => setAttendeeCount((v) => Math.min(2, v + 1))}
                         className="flex size-7 items-center justify-center rounded-md border border-primary-rose text-base font-semibold text-primary-rose transition hover:bg-primary-rose hover:text-white"
                         aria-label="Tambah jumlah orang"
                       >
@@ -285,11 +285,11 @@ export default function Guestbook({
 
         {/* Daftar ucapan yang sudah masuk */}
         <div className="relative z-10 mx-auto mt-16 max-w-prose space-y-4 text-primary-rose">
-          {!loading && (
+          {/* {!loading && (
             <p className="text-center text-sm">
               {totalAttendingPeople} orang telah mengonfirmasi hadir · {visibleMessages.length} ucapan
             </p>
-          )}
+          )} */}
           {loading && <p className="text-center text-sm">Memuat ucapan...</p>}
           {!loading && visibleMessages.length === 0 && (
             <p className="text-center text-sm">
