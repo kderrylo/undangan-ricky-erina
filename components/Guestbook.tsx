@@ -291,11 +291,11 @@ export default function Guestbook({
             </p>
           )} */}
           {loading && <p className="text-center text-sm">Memuat ucapan...</p>}
-          {!loading && visibleMessages.length === 0 && (
+          {/* {!loading && visibleMessages.length === 0 && (
             <p className="text-center text-sm">
               Jadilah yang pertama mengirimkan ucapan.
             </p>
-          )}
+          )} */}
           <div className="grid w-full grid-cols-1 gap-2 lg:grid-cols-2">
             {visibleMessages.map((c) => (
               <div key={c.id} className="rounded-xl bg-[#FCECED] p-4">
